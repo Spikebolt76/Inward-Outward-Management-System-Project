@@ -4,7 +4,8 @@
   "description": "server-side code for Inward-Outward Management System",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Spikebolt76/Inward-Outward-Management-System-Project.git",
+    "directory": "backend"
   },
   "license": "MIT",
   "author": "Jinesh_Savaliya",
