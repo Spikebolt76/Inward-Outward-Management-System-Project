@@ -1,0 +1,16 @@
+{
+  "name": "iom-backend",
+  "version": "1.0.0",
+  "description": "server-side code for Inward-Outward Management System",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "author": "Jinesh_Savaliya",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  }
+}

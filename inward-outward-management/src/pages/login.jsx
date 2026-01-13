@@ -23,7 +23,7 @@ const Login = () => {
                         <h2 className="text-[3.5rem] font-semibold">Welcome back!</h2>
                         <p className="font-normal text-[2rem] mb-[50px]">Please enter your details</p>
 
-                        <form className="flex flex-col">
+                        <form id="loginDetails" className="flex flex-col">
                             <input type="email" placeholder="Email" />
                             <div className="relative" id="pass-div">
                                 <input type={showPassword ? "text" : "password"} placeholder="Password" />

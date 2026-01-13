@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         path: "offices",
         element: <Offices />
       },
-      { path: "offcies/add", element: <AddOffices />},
+      { path: "offices/add", element: <AddOffices />},
 
       {
         path: "modes",
