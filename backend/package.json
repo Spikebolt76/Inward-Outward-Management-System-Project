@@ -9,9 +9,12 @@
   },
   "license": "MIT",
   "author": "Jinesh_Savaliya",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "start"
+    "start": "node index"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }
