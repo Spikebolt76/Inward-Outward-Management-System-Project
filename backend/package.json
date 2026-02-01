@@ -9,12 +9,15 @@
   },
   "license": "MIT",
   "author": "Jinesh_Savaliya",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "start": "node index"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mysql2": "^3.16.2",
+    "nodemon": "^3.1.11",
+    "sequelize": "^6.37.7"
   }
 }
