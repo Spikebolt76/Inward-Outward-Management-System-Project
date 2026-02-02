@@ -1,18 +1,11 @@
 const express = require('express');
-const app = express()
-const PORT = 3000
+const app = express();
+const startConnection = require("./db/init");
 
-app.use(json())
-app.get('/', (req, res) => {
-    res.send("Welcome to the Inward-Outward Management Interface!");
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
-app.post('/', (req, res) => {
-    
-    res.send(req.body);
-})
 
-app.listen(PORT, () => {
-    console.log("Server listening on port : ", PORT);
-});
 
+// database connection and table-sync :
+startConnection();
