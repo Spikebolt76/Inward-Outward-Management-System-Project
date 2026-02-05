@@ -1,4 +1,6 @@
 const sequelize = require("./connection");
+const {User, Institute, Department, FinancialYear, Inward, Outward,
+    InOutwardFromTo, InOutwardMode, InOutwardOffice, CourierCompany} = require("../models/associations")
 
 // async function initDB() {  ------> Database has been created, no need to run this code
 //     try{
@@ -19,7 +21,7 @@ async function startConnection() {
         await sequelize.authenticate();
         console.log("Connected to MySQL database");
 
-        await sequelize.sync();
+        await sequelize.sync({ alter: true });
         console.log("Tables synced");
     } catch(err) {
         console.log("Error: ", err)

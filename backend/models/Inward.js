@@ -44,7 +44,7 @@ const Inward = sequelize.define('Inward', {
         allowNull: false  
     },
     InternalOutwardID: {  
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER, 
         allowNull: true
     },
     FinYearID: {
@@ -107,8 +107,12 @@ const Inward = sequelize.define('Inward', {
 
     Remarks: {
         type: DataTypes.STRING(500)
+    }, 
+    CreatedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
-    UserID: {
+    UpdatedBy: {
         type: DataTypes.INTEGER,
         allowNull: false
     }

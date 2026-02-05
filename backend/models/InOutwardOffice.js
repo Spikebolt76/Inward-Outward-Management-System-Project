@@ -12,7 +12,7 @@ const InOutwardOffice = sequelize.define('InOutwardOffice', {
         allowNull: false
     },
     InstituteID: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER, 
         allowNull: false
     },
     DepartmentID: {
@@ -36,7 +36,12 @@ const InOutwardOffice = sequelize.define('InOutwardOffice', {
     Remarks: {
         type: DataTypes.STRING(500)
     },
-    UserID: {
+    
+    CreatedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    UpdatedBy: {
         type: DataTypes.INTEGER,
         allowNull: false
     }

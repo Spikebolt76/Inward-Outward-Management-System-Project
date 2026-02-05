@@ -135,9 +135,13 @@ const Outward = sequelize.define('Outward', {
     },
     Remarks: {
         type: DataTypes.STRING(500),
-        allowNull: true
+        allowNull: true 
     },
-    UserID: {
+    CreatedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    UpdatedBy: {
         type: DataTypes.INTEGER,
         allowNull: false
     }
@@ -149,4 +153,4 @@ const Outward = sequelize.define('Outward', {
     updatedAt: 'Modified'
 });
 
-module.exports = Outward;
+module.exports = Outward; 

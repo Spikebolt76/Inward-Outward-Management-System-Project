@@ -8,10 +8,10 @@ const Department = sequelize.define('Department', {
         autoIncrement: true
     },
     DepartmentName: {
-        type: DataTypes.STRING(250),
+        type: DataTypes.STRING(250), 
         allowNull: false
     },
-    InstituteID: {
+    InstituteID: { // Foreign key
         type: DataTypes.INTEGER,
         allowNull: true  // Can be NULL due to ON DELETE SET NULL
     },

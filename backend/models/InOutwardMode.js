@@ -23,13 +23,18 @@ const InOutwardMode = sequelize.define('InOutwardMode', {
     Remarks: {
         type: DataTypes.STRING(500)
     },
-    UserID: {
+    
+    CreatedBy: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false
+    },
+    UpdatedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 }, {
     tableName: 'InOutwardMode',
-    freezeTableName: true,
+    freezeTableName: true, 
     timestamps: true,
     createdAt: 'Created',
     updatedAt: 'Modified'

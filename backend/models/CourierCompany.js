@@ -7,7 +7,7 @@ const CourierCompany = sequelize.define('CourierCompany', {
         primaryKey: true,
         autoIncrement: true
     },
-    CourierCompanyName: {
+    CourierCompanyName: { 
         type: DataTypes.STRING(100),
         allowNull: false
     },
@@ -37,7 +37,12 @@ const CourierCompany = sequelize.define('CourierCompany', {
     Remarks: {
         type: DataTypes.STRING(500)
     },
-    UserID: {
+    
+    CreatedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    UpdatedBy: {
         type: DataTypes.INTEGER,
         allowNull: false
     }
