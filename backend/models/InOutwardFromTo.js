@@ -13,7 +13,7 @@ const InOutwardFromTo = sequelize.define('InOutwardFromTo', {
     PersonName: {
         type: DataTypes.STRING(100)
     },
-    Address: {
+    Address: { 
         type: DataTypes.STRING(500)
     },
     Place: {

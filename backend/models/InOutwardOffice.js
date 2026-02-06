@@ -11,13 +11,13 @@ const InOutwardOffice = sequelize.define('InOutwardOffice', {
         type: DataTypes.STRING(250),
         allowNull: false
     },
-    InstituteID: {
+    InstituteID: { // foreign key
         type: DataTypes.INTEGER, 
         allowNull: false
     },
-    DepartmentID: {
+    DepartmentID: { // foreign key
         type: DataTypes.INTEGER,
-        //allowNull: false
+        allowNull: false
     },
     OpeningDate: {
         type: DataTypes.DATE,

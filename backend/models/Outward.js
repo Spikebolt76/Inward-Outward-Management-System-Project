@@ -45,6 +45,7 @@ const Outward = sequelize.define('Outward', {
     InOutwardModeID: {
         type: DataTypes.INTEGER
     },
+
     LetterNo: {
         type: DataTypes.STRING(100)
     },
@@ -63,6 +64,7 @@ const Outward = sequelize.define('Outward', {
     CourierCompanyID: {
         type: DataTypes.INTEGER
     },
+    
     CourierReceiptNo: {
         type: DataTypes.STRING(100)
     },
