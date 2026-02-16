@@ -15,7 +15,7 @@ const Sidebar = ({ open }) => {
 
             <div className="py-8">
                 {sidebarItems.map((item) => (
-                    <React.Fragment key={item.label} className="flex flex-col">
+                    <React.Fragment key={item.label} >
                         <NavItem 
                             icon={item.icon}
                             label={item.label}
