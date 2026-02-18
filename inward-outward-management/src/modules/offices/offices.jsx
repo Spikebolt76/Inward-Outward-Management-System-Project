@@ -1,13 +1,30 @@
 import { FaListUl } from "react-icons/fa6";
-import { FaPlus } from "react-icons/fa6";
 import DataTable from "../../components/dataTable";
 import { officeColumns } from "./officeColumns";
-import { makeDummyData } from "../dummyData";
-import AddButton from "../../components/addButton";
 
-const data = makeDummyData(officeColumns, 3);
+import AddButton from "../../components/addButton";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
 const Offices = () => {
+
+    const [office, setOffice] = useState([]);
+
+    useEffect(() => {
+        const fetchOfficeData = async () => {
+            try{
+                const { data }
+                    = await axios.get("/api/offices");
+                console.log(data)
+                setOffice(data.data);
+            } catch(err) {
+                console.log("failed to load office data", err);
+            }   
+        }
+
+        fetchOfficeData();
+    }, []);
+
     return(
         <div className="flex-1">
            <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
@@ -25,7 +42,8 @@ const Offices = () => {
 
                 <DataTable 
                 columns={officeColumns}
-                data={data}
+                data={office}
+                rowKey="InOutOfficeID"
                 />
             </div>
         </div>

@@ -1,7 +1,22 @@
+import { useState, useEffect } from "react";
 import { FaFilePen } from "react-icons/fa6";
+
 
 const AddEditOffice = () => {
 
+    const [formData, setFormData] = useState([]);
+
+    useEffect(() => {
+        const fetchFormData = async () => {
+            try {
+                const { data } = 
+            } catch(err) {
+                console.log("failed to load office data", err);
+            }
+        }
+
+        fetchFormData();
+    });
     return (
         <div className="flex-1">
             <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">

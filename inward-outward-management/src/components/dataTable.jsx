@@ -3,7 +3,8 @@ import Tooltip from "./tooltip";
 
 const DataTable = ({
     columns, // DO NOT ADD "Actions" COLUMN TO ANY *Columns.JS FILE
-    data,  
+    data, 
+    rowKey,
     onView,
     onEdit,
     onDelete,
@@ -27,13 +28,11 @@ const DataTable = ({
 
                 <tbody className="bg-gray-100">
                     {data.map((row, rowIndex) => (
-                        <tr key={row.id ?? rowIndex} className="border-b border-gray-400">
+                        <tr key={rowKey ? row[rowKey] : rowIndex} className="border-b border-gray-400">
 
                             {columns.map((col) => (
                                 <td key={col.key} className="px-6 py-4">
-                                    {col.render
-                                    ? col.render(row[col.key], row)
-                                    : row[col.key]}
+                                    {row[col.key]}
                                 </td>
                             ))}
                         

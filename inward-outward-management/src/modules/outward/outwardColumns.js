@@ -13,7 +13,7 @@ export const outwardColumns = [
     },
     {   
         key: "inOutwardModeID", 
-        header: "Mode", render: (id, row) => row.modeName || "—" 
+        header: "Mode" 
     },
     { 
         key: "deliveryStatus", 

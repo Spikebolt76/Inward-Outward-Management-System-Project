@@ -1,6 +1,6 @@
 export const officeColumns = [
     {
-        key: 'officeName',
+        key: 'OfficeName',
         header: 'Office Name'
     },
     {
@@ -8,15 +8,15 @@ export const officeColumns = [
         header: 'Department'
     },
     {
-        key: 'openingDate',
+        key: 'OpeningDate',
         header: 'Opening Date'
     },
     {
-        key: 'openingInwardNo',
+        key: 'OpeningInwardNo',
         header: 'Starting Inward No'
     },
     {
-        key: 'openingOutwardNo',
+        key: 'OpeningOutwardNo',
         header: 'Starting Outward No'
     }
 ]
