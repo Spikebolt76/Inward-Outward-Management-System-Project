@@ -13,17 +13,17 @@ const Offices = () => {
     useEffect(() => {
         const fetchOfficeData = async () => {
             try{
-                const { data }
+                const { data: { data: offices } }
                     = await axios.get("/api/offices");
-                console.log(data)
-                setOffice(data.data);
+                
+                setOffice(offices);
             } catch(err) {
                 console.log("failed to load office data", err);
             }   
         }
 
         fetchOfficeData();
-    }, []);
+    }, []); //i better don't forget to put the empty dependency array bruh
 
     return(
         <div className="flex-1">

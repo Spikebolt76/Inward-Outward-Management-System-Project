@@ -5,11 +5,21 @@ const createOffice = async (data) => {
 }
 
 const getAllOffices = async () => {
-    return await InOutwardOffice.findAll();
+    return await InOutwardOffice.findAll({
+        include: [
+            { model: Institute },
+            { model: Department }
+        ]
+    });
 }
 
 const getOffice = async (id) => {
-    return await InOutwardOffice.findByPk(id);
+    return await InOutwardOffice.findByPk(id, {
+        include: [
+            { model: Institute },
+            { model: Department }
+        ]
+    });
 }
 
 const deleteOffice = async (id) => {
