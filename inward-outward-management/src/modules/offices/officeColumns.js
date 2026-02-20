@@ -4,7 +4,7 @@ export const officeColumns = [
         header: 'Office Name'
     },
     {
-        key: 'department',
+        key: 'DepartmentName',
         header: 'Department'
     },
     {

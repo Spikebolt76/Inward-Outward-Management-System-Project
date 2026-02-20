@@ -3,10 +3,10 @@ const router = express.Router();
 
 const instituteController = require('../controllers/institute.controller');
 
-router.get("/", instituteController.getAllinstitutes); 
-router.get("/:id", instituteController.getinstitute);
-router.post("/", instituteController.createinstitute);
-router.put("/:id", instituteController.updateinstitute);
-router.delete("/:id", instituteController.deleteinstitute);
+router.get("/", instituteController.getAllInstitutes); 
+router.get("/:id", instituteController.getInstitute);
+router.post("/", instituteController.createInstitute);
+router.put("/:id", instituteController.updateInstitute);
+router.delete("/:id", instituteController.deleteInstitute);
 
 module.exports = router;

@@ -5,7 +5,17 @@ import axios from "axios";
 
 const AddEditOffice = () => {
 
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        OfficeName: "",
+        InstituteID: "",
+        DepartmentID: "",
+        OpeningDate: "",
+        OpeningInwardNo: 1,
+        OpeningOutwardNo: 1,
+        Remarks: "",
+        CreatedBy: 1, // Hardcoded temporary ID
+        UpdatedBy: 1
+    });
     const [helperData, setHelperData] = useState({});
     const navigate = useNavigate();
     const { id } = useParams();
@@ -15,8 +25,8 @@ const AddEditOffice = () => {
         const fetchHelperData = async () => {
             try{
                 const [{ data: { data: department } }, { data: { data: institute } }] = await Promise.all([
-                    axios.get("/api/department"),
-                    axios.get("/api/institute")
+                    axios.get("/api/departments"),
+                    axios.get("/api/institutes")
                 ]);
                 setHelperData({ department, institute });
             } catch(err) {
@@ -43,15 +53,21 @@ const AddEditOffice = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!formData.InstituteID || !formData.DepartmentID) {
+            alert("Please select both Institute and Department");
+            return;
+        }
+
         try {
             if (isEditMode) {
-                await axios.put(`/api/office/${id}`, formData);
+                await axios.put(`/api/offices/${id}`, formData);
             } else {
                 await axios.post(`/api/offices`, formData);
             }
             navigate("/offices");
         } catch(err) {
             console.error("Failed to save office:", err);
+            alert(`Error: ${err.response?.data?.message || err.message}`);
         }
     }
 
@@ -90,11 +106,10 @@ const AddEditOffice = () => {
                             </label>
                             <select
                                 className="border rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                required
-                                onChange={(e) => setHelperData({...formData, OfficeName: e.target.value})}
-                            >
+                                value={formData.InstituteID}
+                                onChange={(e) => setFormData({...formData, InstituteID: Number(e.target.value)})} >
                                 <option value="">Select Institute</option>
-                                {helperData.institute.map((institute) => 
+                                {(helperData.institute || []).map((institute) => 
                                     <option key={institute.InstituteID} value={institute.InstituteID}>{institute.InstituteName}</option>
                                 )}
                             </select>
@@ -106,10 +121,10 @@ const AddEditOffice = () => {
                             </label>
                             <select
                                 className="border rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                required
-                            >
+                                value={formData.DepartmentID}
+                                onChange={(e) => setFormData({...formData, DepartmentID: Number(e.target.value)})} >
                                 <option value="">Select Department</option>
-                                {helperData.department.map((department) => 
+                                {(helperData.department || []).map((department) => 
                                     <option key={department.DepartmentID} value={department.DepartmentID}>{department.DepartmentName}</option>
                                 )}
                             </select>
@@ -123,6 +138,8 @@ const AddEditOffice = () => {
                                 type="date"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
+                                value={formData.OpeningDate}
+                                onChange={(e) => setFormData({...formData, OpeningDate: e.target.value})}
                             />
                         </div>
 
@@ -132,7 +149,8 @@ const AddEditOffice = () => {
                                 type="number"
                                 min="1"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                defaultValue={1}
+                                value={formData.OpeningInwardNo}
+                                onChange={(e) => setFormData({...formData, OpeningInwardNo: Number(e.target.value)})}
                             />
                         </div>
 
@@ -142,7 +160,8 @@ const AddEditOffice = () => {
                                 type="number"
                                 min="1"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                defaultValue={1}
+                                value={formData.OpeningOutwardNo}
+                                onChange={(e) => setFormData({...formData, OpeningOutwardNo: Number(e.target.value)})}
                             />
                         </div>
 
@@ -152,6 +171,8 @@ const AddEditOffice = () => {
                                 rows="3"
                                 placeholder="Enter Remarks"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.Remarks}
+                                onChange={(e) => setFormData({...formData, Remarks: e.target.value})}
                             />
                         </div>
                     </div>

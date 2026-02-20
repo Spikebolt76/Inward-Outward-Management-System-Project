@@ -12,9 +12,10 @@ const createOffice = async (req, res) => {
         });
 
     } catch(err) {
+        console.error("Create office error:", err);
         res.status(500).json({
             success: false,
-            message: err.message
+            message: err.message || "Failed to create office"
         });
     }
 }

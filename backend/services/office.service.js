@@ -1,4 +1,6 @@
 const InOutwardOffice = require('../models/InOutwardOffice');
+const Institute = require('../models/Institute');
+const Department = require('../models/Department');
 
 const createOffice = async (data) => {
     return await InOutwardOffice.create(data);
@@ -7,8 +9,8 @@ const createOffice = async (data) => {
 const getAllOffices = async () => {
     return await InOutwardOffice.findAll({
         include: [
-            { model: Institute },
-            { model: Department }
+            { model: Institute, as: 'Institute' },
+            { model: Department, as: 'Department' }
         ]
     });
 }
@@ -16,8 +18,8 @@ const getAllOffices = async () => {
 const getOffice = async (id) => {
     return await InOutwardOffice.findByPk(id, {
         include: [
-            { model: Institute },
-            { model: Department }
+            { model: Institute, as: 'Institute' },
+            { model: Department, as: 'Department' }
         ]
     });
 }

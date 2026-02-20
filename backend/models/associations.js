@@ -9,6 +9,27 @@ const CourierCompany = require('./CourierCompany');
 const Inward = require('./Inward');
 const Outward = require('./Outward');
 
+Institute.hasMany(InOutwardOffice, {
+    foreignKey: 'InstituteID',
+    as: 'Offices'
+});
+
+InOutwardOffice.belongsTo(Institute, {
+    foreignKey: 'InstituteID',
+    as: 'Institute'
+});
+
+Department.hasMany(InOutwardOffice, {
+    foreignKey: 'DepartmentID',
+    as: 'Offices'
+});
+
+InOutwardOffice.belongsTo(Department, {
+    foreignKey: 'DepartmentID',
+    as: 'Department'
+});
+
+
 // Supporting tables: ------------------------------------------------------
 
 Department.belongsTo(Institute, {
@@ -61,8 +82,6 @@ userModels.forEach(({ model, as }) => {
     });
 });
 
-module.exports = {User, Institute, Department, FinancialYear, Inward, Outward, InOutwardFromTo, InOutwardMode, InOutwardOffice, CourierCompany};
-
 // Transaction table relations : 
 
 Inward.belongsTo(FinancialYear, {
@@ -84,3 +103,5 @@ FinancialYear.hasMany(Outward, {
     foreignKey :'FinYearID',
     as: 'Outwards'
 });
+
+module.exports = {User, Institute, Department, FinancialYear, Inward, Outward, InOutwardFromTo, InOutwardMode, InOutwardOffice, CourierCompany};
