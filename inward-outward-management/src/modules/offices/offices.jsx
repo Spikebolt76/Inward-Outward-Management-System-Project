@@ -6,12 +6,15 @@ import AddButton from "../../components/addButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import ConfirmDeleteModal from "../../components/confirmDeleteModal";
+import ViewOfficeModal from "./viewOfficeModal";
 
 const Offices = () => {
     const navigate = useNavigate();
     const [offices, setOffices] = useState([]);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [rowToDelete, setRowToDelete] = useState(null);
+    const [isViewOpen, setIsViewOpen] = useState(false);
+    const [rowToView, setRowToView] = useState(null);
 
     useEffect(() => {
         const fetchOfficeData = async () => {
@@ -28,15 +31,21 @@ const Offices = () => {
         fetchOfficeData();
     }, []); //i better don't forget to put the empty dependency array 
 
-    // const handleView = (office) => {
-        
-    // }
-
-    const handleEdit = (office) => {
-        navigate(`/offices/${office.InOutwardOfficeID}`);
+    const handleView = (row) => {
+        setIsViewOpen(true);
+        setRowToView(row)
     }
 
-    const handleDelete = async (row) => {
+    const handleEdit = (row) => {
+        navigate(`/offices/${row.InOutwardOfficeID}`);
+    }
+
+    const handleDelete = (row) => {
+        setRowToDelete(row);
+        setIsDeleteOpen(true);
+    }
+
+    const handleConfirmDelete = async (row) => {
         try {
             await axios.delete(`/api/offices/${row.InOutwardOfficeID}`);
 
@@ -66,18 +75,21 @@ const Offices = () => {
                     columns={officeColumns}
                     data={offices}
                     rowKey="InOutwardOfficeID"
-                    //onView={handleView}
-                    onDelete={(row) => {
-                        setRowToDelete(row);
-                        setIsDeleteOpen(true);
-                    }}
+                    onView={handleView}
+                    onDelete={handleDelete}
                     onEdit={handleEdit}
                 />
             </div>
             
             {isDeleteOpen && <ConfirmDeleteModal 
                 onCancel={() => setIsDeleteOpen(false)}
-                onConfirm={() => handleDelete(rowToDelete)}/>}
+                onConfirm={() => handleConfirmDelete(rowToDelete)}/>}
+
+            {isViewOpen && <ViewOfficeModal 
+                onEdit={handleEdit} 
+                onCancel={() => setIsViewOpen(false)}
+                data={rowToView}/>}
+                
         </div>
     );
 }

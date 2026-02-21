@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
 @import "tailwindcss";
 
 @font-face {
@@ -11,6 +12,29 @@
 
 @theme {
   --color-officeCM: #dbeeec;
+  --font-mono: "DM Mono", ui-monospace;
+  --animate-fadeIn: fadeIn 0.18s ease;
+  --animate-slideUp: slideUp 0.22s cubic-bezier(.22, .68, 0, 1.2);
+  
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
+
+  @keyframes slideUp {
+      from {
+          transform: translateY(18px);
+          opacity: 0;
+      }
+      to {
+          transform: translateY(0);
+          opacity: 1;
+      }
+  }
 }
 
 @layer base {

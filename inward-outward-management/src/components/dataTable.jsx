@@ -41,21 +41,21 @@ const DataTable = ({
 
                                     <Tooltip text="View">
                                         <button onClick={() => onView?.(row)}
-                                        className="p-3 rounded-md text-blue-700 hover:bg-gray-300">
+                                        className="p-3 rounded-md text-blue-700 hover:bg-gray-300 cursor-pointer">
                                             <FaFileLines />
                                         </button>
                                     </Tooltip>                              
                                 
                                     <Tooltip text="Edit">
                                         <button onClick={() => onEdit?.(row)}
-                                        className="p-3 rounded-md text-green-700 hover:bg-gray-300">
+                                        className="p-3 rounded-md text-green-700 hover:bg-gray-300 cursor-pointer">
                                             <FaPenToSquare />
                                         </button>
                                     </Tooltip>
                             
                                     <Tooltip text="Delete">
                                         <button onClick={() => onDelete?.(row)}
-                                        className="p-3 rounded-md text-red-700 hover:bg-gray-300">
+                                        className="p-3 rounded-md text-red-700 hover:bg-gray-300 cursor-pointer">
                                             <FaTrashCan />
                                         </button>
                                     </Tooltip>

@@ -11,10 +11,9 @@ const PageNotFound = () => {
             <NavLink to="/" className="m-10 inline-block hover:opacity-80 text-4xl text-white border-3 border-[#e4bdbd] rounded-lg p-3 bg-[#d74a49]">
                 Return To Dashboard
             </NavLink>
-
-            <ViewOfficeModal />
         </div>        
     );
 }
 
 export default PageNotFound;
+

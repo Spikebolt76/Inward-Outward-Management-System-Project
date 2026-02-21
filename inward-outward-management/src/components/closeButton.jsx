@@ -3,9 +3,9 @@ import { FaXmark } from "react-icons/fa6";
 const CloseButton = () => {
     const navigate = useNavigate();
     return(
-        <button className="self-center hover:bg-gray-300 rounded"
+        <button className="cursor-pointer self-center text-gray-500 hover:bg-gray-300 hover:text-gray-800 rounded duration-100 ease-in-out"
             onClick={() => navigate(-1)}>
-            <FaXmark className="text-[24px]"/>
+            <FaXmark className="text-[23px]"/>
         </button>
     );
 }

@@ -179,11 +179,16 @@ const AddEditInward = () => {
                     </section>
 
                     {/* Actions */}
-                    <div className="flex justify-center gap-7 pt-6">
-                        <button className="bg-blue-600 text-white px-10 py-2 rounded-md">
+                    <div className="flex justify-center gap-6 mt-10">
+                        <button
+                            type="submit"
+                            className="px-8 py-2 rounded-md bg-[#1e6784] text-white hover:bg-[#175067] transition cursor-pointer">
                             Save Inward
                         </button>
-                        <button type="reset" className="border px-10 py-2 rounded-md">
+
+                        <button
+                            type="reset"
+                            className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer">
                             Clear
                         </button>
                     </div>

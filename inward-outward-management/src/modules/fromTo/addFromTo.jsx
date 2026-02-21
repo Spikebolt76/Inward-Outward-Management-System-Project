@@ -100,15 +100,13 @@ const AddFromTo = () => {
                     <div className="flex justify-center gap-6 mt-10">
                         <button
                             type="submit"
-                            className="px-6 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition"
-                        >
+                            className="px-8 py-2 rounded-md bg-[#1e6784] text-white hover:bg-[#175067] transition cursor-pointer">
                             Save
                         </button>
 
                         <button
                             type="reset"
-                            className="px-6 py-2 rounded-md border border-gray-400 hover:bg-gray-100 transition"
-                        >
+                            className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer">
                             Clear
                         </button>
                     </div>
