@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { FaFilePen } from "react-icons/fa6";
+import { FaFilePen, FaXmark } from "react-icons/fa6";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import CloseButton from "../../components/closeButton";
 
 const AddEditOffice = () => {
 
@@ -53,11 +54,6 @@ const AddEditOffice = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.InstituteID || !formData.DepartmentID) {
-            alert("Please select both Institute and Department");
-            return;
-        }
-
         try {
             if (isEditMode) {
                 await axios.put(`/api/offices/${id}`, formData);
@@ -75,9 +71,13 @@ const AddEditOffice = () => {
         <div className="flex-1">
             <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
 
-                <div className="flex items-center gap-4 text-[22px] text-gray-800">
-                    <FaFilePen />
-                    <span>Add / Edit Office</span>
+                <div className="flex justify-between text-[22px] text-gray-800 px-2">
+                    <div className="flex items-center gap-4">
+                        <FaFilePen />
+                        <span>Add / Edit Office</span>
+                    </div>
+                    
+                    <CloseButton />
                 </div>
 
                 <hr className="border-gray-300 my-6 -mx-6" />
@@ -96,7 +96,7 @@ const AddEditOffice = () => {
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
                                 value={formData.OfficeName}
-                                onChange={(e) => setFormData({...formData, OfficeName: e.target.value})}
+                                onChange={(e) => setFormData({...formData, OfficeName: e.target.value}, e.target.value)}
                             />
                         </div>
 

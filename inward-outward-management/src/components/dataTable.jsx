@@ -32,7 +32,7 @@ const DataTable = ({
 
                             {columns.map((col) => (
                                 <td key={col.key} className="px-6 py-4">
-                                    {row[col.key]}
+                                    {col.render ? col.render(row) : row[col.key]}
                                 </td>
                             ))}
                         

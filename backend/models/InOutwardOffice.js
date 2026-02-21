@@ -20,7 +20,7 @@ const InOutwardOffice = sequelize.define('InOutwardOffice', {
         allowNull: false
     },
     OpeningDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     OpeningInwardNo: {

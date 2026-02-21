@@ -12,7 +12,7 @@ const Outward = sequelize.define('Outward', {
         allowNull: false
     },
     OutwardDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     InwardID: {
@@ -50,7 +50,7 @@ const Outward = sequelize.define('Outward', {
         type: DataTypes.STRING(100)
     },
     LetterDate: {
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
     Subject: {
         type: DataTypes.TEXT
@@ -69,7 +69,7 @@ const Outward = sequelize.define('Outward', {
         type: DataTypes.STRING(100)
     },
     CourierReceiptDate: {
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
     TrackingID: {
         type: DataTypes.STRING(50)
@@ -113,7 +113,7 @@ const Outward = sequelize.define('Outward', {
         defaultValue: false
     },
     ReturnDate: {
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
     ReturnReason: {
         type: DataTypes.STRING(500)

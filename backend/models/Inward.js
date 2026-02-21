@@ -1,4 +1,4 @@
-const { DataTypes, DATE } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
 const Inward = sequelize.define('Inward', {
@@ -12,11 +12,11 @@ const Inward = sequelize.define('Inward', {
         allowNull: false
     },
     InwardDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     ReceivedDate: {
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
 
     OutwardID: {
@@ -56,14 +56,14 @@ const Inward = sequelize.define('Inward', {
         type: DataTypes.STRING(100), 
     },
     ReceiptDate: {
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
 
     InwardLetterNo: {
         type: DataTypes.STRING(100)
     },
     InwardLetterDate: {
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
     LetterFromName: {
         type: DataTypes.STRING(100)

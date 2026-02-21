@@ -5,7 +5,8 @@ export const officeColumns = [
     },
     {
         key: 'DepartmentName',
-        header: 'Department'
+        header: 'Department',
+        render: (row) => row.Department?.DepartmentName
     },
     {
         key: 'OpeningDate',

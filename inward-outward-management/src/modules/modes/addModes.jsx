@@ -1,4 +1,5 @@
 import { FaFilePen } from "react-icons/fa6";
+import CloseButton from "../../components/closeButton";
 
 const AddEditMode = () => {
     return (
@@ -6,9 +7,13 @@ const AddEditMode = () => {
             <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
 
                 {/* Header */}
-                <div className="flex items-center gap-4 text-[22px] text-gray-800">
-                    <FaFilePen />
-                    <span>Add / Edit Mode</span>
+                <div className="flex justify-between text-[22px] text-gray-800 px-2">
+                    <div className="flex items-center gap-4">
+                        <FaFilePen />
+                        <span>Add / Edit Mode</span>
+                    </div>
+                    
+                    <CloseButton />
                 </div>
 
                 <hr className="border-gray-300 my-6 -mx-6" />
