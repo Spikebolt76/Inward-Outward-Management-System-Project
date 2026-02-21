@@ -1,5 +1,7 @@
 import { FaFileLines, FaPenToSquare, FaTrashCan } from "react-icons/fa6"
 import Tooltip from "./tooltip";
+import ActiveBadge from "./activeBadge";
+import InactiveBadge from "./inactiveBadge";
 
 const DataTable = ({
     columns, // DO NOT ADD "Actions" COLUMN TO ANY *Columns.JS FILE
@@ -32,7 +34,11 @@ const DataTable = ({
 
                             {columns.map((col) => (
                                 <td key={col.key} className="px-6 py-4">
-                                    {col.render ? col.render(row) : row[col.key]}
+                                    {col.render ? col.render(row) : 
+                                        col.key === 'IsActive' 
+                                            ? (row[col.key] ? <ActiveBadge /> : <InactiveBadge />)
+                                            : row[col.key]
+                                    }
                                 </td>
                             ))}
                         

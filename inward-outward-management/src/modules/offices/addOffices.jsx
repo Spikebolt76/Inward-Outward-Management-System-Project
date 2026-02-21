@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaFilePen, FaXmark } from "react-icons/fa6";
+import { FaFilePen } from "react-icons/fa6";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CloseButton from "../../components/closeButton";
@@ -17,6 +17,7 @@ const AddEditOffice = () => {
         CreatedBy: 1, // Hardcoded temporary ID
         UpdatedBy: 1
     });
+    
     const [helperData, setHelperData] = useState({});
     const navigate = useNavigate();
     const { id } = useParams();
@@ -63,7 +64,6 @@ const AddEditOffice = () => {
             navigate("/offices");
         } catch(err) {
             console.error("Failed to save office:", err);
-            alert(`Error: ${err.response?.data?.message || err.message}`);
         }
     }
 
@@ -96,7 +96,7 @@ const AddEditOffice = () => {
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
                                 value={formData.OfficeName}
-                                onChange={(e) => setFormData({...formData, OfficeName: e.target.value}, e.target.value)}
+                                onChange={(e) => setFormData({...formData, OfficeName: e.target.value})}
                             />
                         </div>
 

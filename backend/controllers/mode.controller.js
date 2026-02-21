@@ -1,47 +1,47 @@
-const express = require('express');
+const express = require("express");
 
-const officeService = require('../services/office.service');
+const modeService = require("../services/mode.service");
 
-const createOffice = async (req, res) => {
+const createMode = async (req, res) => {
     try {
-        const office = await officeService.createOffice(req.body);
+        const mode = await modeService.createMode(req.body);
 
         res.status(201).json({
             success: true,
-            data: office
+            data: mode
         });
 
     } catch(err) {
         res.status(500).json({
             success: false,
-            message: err.message || "Failed to create office"
+            message: err.message || "Failed to create mode"
         });
     }
 }
 
-const getAllOffices = async (req, res) => {
+const getAllModes = async (req, res) => {
     try {
-        const offices = await officeService.getAllOffices();
-        
+        const modes = await modeService.getAllModes();
+
         res.status(200).json({
-            success: true,
-            data: offices
+            succes: true,
+            data: modes
         });
 
     } catch(err) {
         res.status(500).json({
             success: false,
-            message: err.message
-        });
+            message: err.message 
+        })
     }
 }
 
-const getOffice = async (req, res) => {
+const getMode = async (req, res) => {
     try {
-        const office = await officeService.getOffice(req.params.id);
+        const mode = await modeService.getMode(req.params.id);
 
-        if(!office) {
-            return res.status(404).json({
+        if(!mode) {
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
@@ -49,63 +49,63 @@ const getOffice = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            data: office
+            data: mode
         });
 
     } catch(err) {
-        res.status(500).json({
+        req.status(500).json({
             success: false,
             message: err.message
         });
     }
 }
 
-const deleteOffice = async (req, res) => {
+const deleteMode = async (req, res) => {
     try {
-        const deleted = await officeService.deleteOffice(req.params.id);
+        const deleted = await modeService.getMode(req,params.id);
         
         if(!deleted) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
         }
-        
+
         res.status(200).json({
             success: true,
             data: deleted
         });
 
     } catch(err) {
-        res.status(500).json({
+        req.status(500).json({
             success: false,
             message: err.message
         });
     }
 }
 
-const updateOffice = async (req, res) => {
+const updateMode = async (req, res) => {
     try {
-        const updated = await officeService.updateOffice(req.params.id, req.body);
-        
+        const updated = await modeService.getMode(req,params.id, req.boyd);
+
         if(!updated) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
         }
-        
+
         res.status(200).json({
             success: true,
             data: updated
         });
 
     } catch(err) {
-        res.status(500).json({
+        req.status(500).json({
             success: false,
             message: err.message
         });
     }
 }
 
-module.exports = { createOffice, getAllOffices, getOffice, updateOffice, deleteOffice } 
+module.exports = { createMode, getAllModes, getMode, updateMode, deleteMode };

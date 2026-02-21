@@ -7,6 +7,7 @@ require('dotenv').config();
 const officeRoutes = require('./routes/office.route');
 const instituteRoutes = require('./routes/institute.route');
 const departmentRoutes = require('./routes/department.route');
+const modeRoutes = require('./routes/mode.route');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/offices', officeRoutes);
 app.use('/api/institutes', instituteRoutes);
 app.use('/api/departments', departmentRoutes);
+app.use('/api/modes', modeRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log("Server listening on PORT = ", process.env.PORT);

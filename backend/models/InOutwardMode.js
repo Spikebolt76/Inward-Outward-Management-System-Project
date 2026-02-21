@@ -3,12 +3,12 @@ const sequelize = require('../db/connection');
 
 
 const InOutwardMode = sequelize.define('InOutwardMode', {
-    InOutwardID: {
+    InOutwardModeID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    InOutwardName: {
+    InOutwardModeName: {
         type: DataTypes.STRING(100),
         allowNull: false
     },
@@ -18,7 +18,7 @@ const InOutwardMode = sequelize.define('InOutwardMode', {
         defaultValue: 1
     },
     Sequence: {
-        type: DataTypes.DECIMAL(18,2)
+        type: DataTypes.INTEGER
     },
     Remarks: {
         type: DataTypes.STRING(500)
