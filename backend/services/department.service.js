@@ -21,7 +21,7 @@ const deleteDepartment = async (id) => {
 const updateDepartment = async (id, data) => {
     const department = await Department.findByPk(id);
 
-    if (!Department) return null;
+    if (!department) return null;
 
     await Department.update(data);
 

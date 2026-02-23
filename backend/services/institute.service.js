@@ -21,7 +21,7 @@ const deleteInstitute = async (id) => {
 const updateInstitute = async (id, data) => {
     const institute = await Institute.findByPk(id);
 
-    if (!Institute) return null;
+    if (!institute) return null;
 
     await Institute.update(data);
 
