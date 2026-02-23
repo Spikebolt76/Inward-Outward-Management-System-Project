@@ -1,6 +1,6 @@
 export const courierColumns = [
     {
-        key: 'courierCompanyName',
+        key: 'companyName',
         header: 'Courier Company'
     },
     {
@@ -8,12 +8,12 @@ export const courierColumns = [
         header: 'Contact Person'
     },
     {
-        key: 'phoneNo',
-        header: 'Phone'  
+        key: 'isActive',
+        header: 'Status'
     },
     {
-        key: 'emial',
-        header: 'Email'  
+        key: 'website',
+        header: 'Website'  
     },
     {
         key: 'defaultRate',

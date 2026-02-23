@@ -1,5 +1,4 @@
 import { FaListUl } from "react-icons/fa6";
-import { FaPlus } from "react-icons/fa6";
 import DataTable from "../../components/dataTable";
 import { inwardColumns } from "./inwardColumns";
 import { makeDummyData } from "../dummyData";

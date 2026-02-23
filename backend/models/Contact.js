@@ -1,51 +1,65 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
-const CourierCompany = sequelize.define('CourierCompany', {
-    courierCompanyId: {
+const Contact = sequelize.define('Contact', {
+    contactId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        field: 'courier_company_id'
+        field: 'contact_id'
     },
-    companyName: {
+    contactName: {
         type: DataTypes.STRING(150),
         allowNull: false,
-        field: 'company_name'
+        field: 'contact_name'
     },
-    contactPersonName: {
+    contactType: {
+        type: DataTypes.ENUM('Client', 'Vendor', 'Department', 'Branch', 'Government', 'Other'),
+        allowNull: false,
+        defaultValue: 'Other',
+        field: 'contact_type'
+    },
+    personName: {
         type: DataTypes.STRING(100),
         allowNull: true,
-        field: 'contact_person_name'
-    },
-    phoneNo: {
-        type: DataTypes.STRING(20),
-        allowNull: true,
-        field: 'phone_no'
+        field: 'person_name'
     },
     email: {
         type: DataTypes.STRING(100),
         allowNull: true,
         validate: { isEmail: true }
     },
-    website: {
-        type: DataTypes.STRING(100),
-        allowNull: true
+    phoneNo: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+        field: 'phone_no'
     },
     address: {
         type: DataTypes.STRING(500),
         allowNull: true
     },
-    defaultRate: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
-        field: 'default_rate'
+    city: {
+        type: DataTypes.STRING(100),
+        allowNull: true
+    },
+    state: {
+        type: DataTypes.STRING(100),
+        allowNull: true
+    },
+    pincode: {
+        type: DataTypes.STRING(20),
+        allowNull: true
     },
     isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true,
         field: 'is_active'
+    },
+    displayOrder: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        field: 'display_order'
     },
     remarks: {
         type: DataTypes.STRING(500),
@@ -64,10 +78,10 @@ const CourierCompany = sequelize.define('CourierCompany', {
         field: 'updated_by'
     }
 }, {
-    tableName: 'courier_companies',
+    tableName: 'contacts',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at'
 });
 
-module.exports = CourierCompany;
+module.exports = Contact;

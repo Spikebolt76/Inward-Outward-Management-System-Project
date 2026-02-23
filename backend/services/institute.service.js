@@ -14,7 +14,7 @@ const getInstitute = async (id) => {
 
 const deleteInstitute = async (id) => {
     return await Institute.destroy({
-        where: { InstituteID : id }
+        where: { instituteId : id }
     })
 }
 

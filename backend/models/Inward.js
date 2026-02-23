@@ -2,126 +2,208 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
 const Inward = sequelize.define('Inward', {
-    InwardID: {
+    inwardId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
+        field: 'inward_id'
     },
-    InwardNo: {
+    inwardNo: {
         type: DataTypes.STRING(50),
-        allowNull: false
+        allowNull: false,
+        field: 'inward_no'
+        // Not globally unique — resets per financial year per institute.
+        // Composite unique enforced via index: (inward_no, fin_year_id, institute_id)
     },
-    InwardDate: {
+    inwardDate: {
         type: DataTypes.DATEONLY,
-        allowNull: false
+        allowNull: false,
+        field: 'inward_date'
     },
-    ReceivedDate: {
-        type: DataTypes.DATEONLY
-    },
-
-    OutwardID: {
-        type: DataTypes.INTEGER
-    },
-    InOutwardModeID: {
-        type: DataTypes.INTEGER
-    },
-    InOutwardFromToID: {
-        type: DataTypes.INTEGER
-    },
-    InstituteID: {
-        type: DataTypes.INTEGER
-    },
-    DepartmentID: {
-        type: DataTypes.INTEGER
+    receivedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        field: 'received_at'
     },
 
-    FromInwardOutwardOfficeID: {  
+    // --- Scope ---
+    instituteId: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
+        references: { model: 'institutes', key: 'institute_id' },
+        field: 'institute_id'
     },
-    ToInwardOutwardOfficeID: {  
+    finYearId: {
         type: DataTypes.INTEGER,
-        allowNull: false  
+        allowNull: false,
+        references: { model: 'financial_years', key: 'fin_year_id' },
+        field: 'fin_year_id'
     },
-    InternalOutwardID: {  
-        type: DataTypes.INTEGER, 
-        allowNull: true
-    },
-    FinYearID: {
+
+    // --- Office routing ---
+    fromOfficeId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true,
+        references: { model: 'offices', key: 'office_id' },
+        field: 'from_office_id'
+    },
+    toOfficeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: 'offices', key: 'office_id' },
+        field: 'to_office_id'
     },
 
-    ReceiptNo: {
-        type: DataTypes.STRING(100), 
+    // --- Sender (FK preferred; fallback plain text for one-time senders) ---
+    fromContactId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: { model: 'contacts', key: 'contact_id' },
+        field: 'from_contact_id'
     },
-    ReceiptDate: {
-        type: DataTypes.DATEONLY
+    fromName: {
+        type: DataTypes.STRING(150),
+        allowNull: true,
+        field: 'from_name'
     },
-
-    InwardLetterNo: {
-        type: DataTypes.STRING(100)
+    fromAddress: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
+        field: 'from_address'
     },
-    InwardLetterDate: {
-        type: DataTypes.DATEONLY
-    },
-    LetterFromName: {
-        type: DataTypes.STRING(100)
-    },
-    LetterFromAddress: {
-        type: DataTypes.STRING(500)
-    },
-
-    FromContactDetails: {  
-        type: DataTypes.STRING(250),
-        allowNull: true
+    fromPhone: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+        field: 'from_phone'
     },
 
-    Subject: {
-        type: DataTypes.TEXT
-    },
-    SubjectShort: {  
+    // --- Internal recipient ---
+    toPersonName: {
         type: DataTypes.STRING(100),
+        allowNull: true,
+        field: 'to_person_name'
+    },
+    toDepartmentId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: { model: 'departments', key: 'department_id' },
+        field: 'to_department_id'
+    },
+
+    // --- Transfer mode ---
+    transferModeId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: { model: 'transfer_modes', key: 'transfer_mode_id' },
+        field: 'transfer_mode_id'
+    },
+
+    // --- Courier (only when mode = Courier) ---
+    courierCompanyId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: { model: 'courier_companies', key: 'courier_company_id' },
+        field: 'courier_company_id'
+    },
+    trackingNo: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        field: 'tracking_no'
+    },
+
+    // --- Letter/document details ---
+    letterNo: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        field: 'letter_no'
+    },
+    letterDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+        field: 'letter_date'
+    },
+    subject: {
+        type: DataTypes.STRING(500),
         allowNull: true
     },
-    Description: {
-        type: DataTypes.STRING(500)
+    subjectShort: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        field: 'subject_short'
+    },
+    description: {
+        type: DataTypes.TEXT,
+        allowNull: true
     },
 
-    ToPersonName: {
-        type: DataTypes.STRING(100)
+    // --- Receipt ---
+    receiptNo: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        field: 'receipt_no'
     },
-    NoOfCompilation: {
-        type: DataTypes.STRING(250)
-    },
-    CopyTo: {
-        type: DataTypes.STRING(250)
-    },
-
-    InwardDocumentPath: {
-        type: DataTypes.STRING(250)
-    },
-    CourierCompanyName: {  
-        type: DataTypes.STRING(100)
+    receiptDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+        field: 'receipt_date'
     },
 
-    Remarks: {
-        type: DataTypes.STRING(500)
-    }, 
-    CreatedBy: {
+    // --- Attachment ---
+    documentPath: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
+        field: 'document_path'
+    },
+
+    // --- Linked outward (reply/forward dispatched in response to this inward) ---
+    linkedOutwardId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true,
+        references: { model: 'outwards', key: 'outward_id' },
+        field: 'linked_outward_id'
     },
-    UpdatedBy: {
+
+    // --- Misc ---
+    copyTo: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
+        field: 'copy_to'
+    },
+    noOfEnclosures: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true,
+        field: 'no_of_enclosures'
+    },
+    remarks: {
+        type: DataTypes.STRING(500),
+        allowNull: true
+    },
+
+    // --- Audit ---
+    createdBy: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'user_id' },
+        field: 'created_by'
+    },
+    updatedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'user_id' },
+        field: 'updated_by'
     }
 }, {
-    tableName: 'Inward',
-    freezeTableName: true,
+    tableName: 'inwards',
     timestamps: true,
-    createdAt: 'Created',
-    updatedAt: 'Modified'
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    indexes: [
+        {
+            unique: true,
+            fields: ['inward_no', 'fin_year_id', 'institute_id'],
+            name: 'uq_inward_no_year_institute'
+        }
+    ]
 });
 
 module.exports = Inward;

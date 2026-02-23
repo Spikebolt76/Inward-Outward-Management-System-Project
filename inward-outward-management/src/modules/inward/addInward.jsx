@@ -28,9 +28,10 @@ const AddEditInward = () => {
 
                         <div className="grid grid-cols-3 gap-7">
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="InwardNo" className="font-medium">Inward No</label>
+                                <label htmlFor="inwardNo" className="font-medium">Inward No</label>
                                 <input
-                                    id="InwardNo"
+                                    id="inwardNo"
+                                    name="inwardNo"
                                     type="text"
                                     readOnly
                                     className="border rounded-md px-3 py-2 bg-gray-100 w-full"
@@ -38,19 +39,21 @@ const AddEditInward = () => {
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="InwardDate" className="font-medium">Inward Date</label>
+                                <label htmlFor="inwardDate" className="font-medium">Inward Date</label>
                                 <input
-                                    id="InwardDate"
+                                    id="inwardDate"
+                                    name="inwardDate"
                                     type="date"
                                     className="border rounded-md px-3 py-2 w-full"
                                 />
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="ReceivedDate" className="font-medium">Received Date</label>
+                                <label htmlFor="receivedAt" className="font-medium">Received Date</label>
                                 <input
-                                    id="ReceivedDate"
-                                    type="date"
+                                    id="receivedAt"
+                                    name="receivedAt"
+                                    type="datetime-local"
                                     className="border rounded-md px-3 py-2 w-full"
                                 />
                             </div>
@@ -66,38 +69,48 @@ const AddEditInward = () => {
                         <div className="grid grid-cols-2 gap-7">
                             
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="Mode" className="font-medium">Mode</label>
-                                <select id="Mode" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
-                                    <option>Select Mode</option>
+                                <label htmlFor="transferModeId" className="font-medium">Mode</label>
+                                <select id="transferModeId" name="transferModeId" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select Mode</option>
                                 </select>
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="FromTo" className="font-medium">From / To</label>
-                                <select id="FromTo" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
-                                    <option>Select From / To</option>
+                                <label htmlFor="fromContactId" className="font-medium">From / To</label>
+                                <select id="fromContactId" name="fromContactId" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select From / To</option>
                                 </select>
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="FromOffice" className="font-medium">From Office</label>
-                                <select id="FromOffice" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
-                                    <option>Select Office</option>
+                                <label htmlFor="fromOfficeId" className="font-medium">From Office</label>
+                                <select id="fromOfficeId" name="fromOfficeId" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select Office</option>
                                 </select>
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="ToOffice" className="font-medium">To Office</label>
-                                <select id="ToOffice" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
-                                    <option>Select Office</option>
+                                <label htmlFor="toOfficeId" className="font-medium">To Office</label>
+                                <select id="toOfficeId" name="toOfficeId" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select Office</option>
                                 </select>
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="Courier" className="font-medium">Courier Company</label>
-                                <select id="Courier" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
-                                    <option>Select Courier</option>
+                                <label htmlFor="courierCompanyId" className="font-medium">Courier Company</label>
+                                <select id="courierCompanyId" name="courierCompanyId" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select Courier</option>
                                 </select>
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="trackingNo" className="font-medium">Tracking No</label>
+                                <input
+                                    id="trackingNo"
+                                    name="trackingNo"
+                                    placeholder="Enter Tracking No"
+                                    className="border rounded-md px-3 py-2 w-full"
+                                />
                             </div>
                         </div>
                     </section>
@@ -111,42 +124,68 @@ const AddEditInward = () => {
                         <div className="grid grid-cols-2 gap-x-10 gap-y-7">
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="letterNo" className="font-medium">Letter No</label>
-                                <input id="letterNo" placeholder="Enter Letter No" className="border px-3 py-2 rounded-md" />
+                                <input id="letterNo" name="letterNo" placeholder="Enter Letter No" className="border px-3 py-2 rounded-md" />
                             </div>
 
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="letterDate" className="font-medium">Letter Date</label>
-                                <input id="letterDate" type="date" className="border px-3 py-2 rounded-md" />
+                                <input id="letterDate" name="letterDate" type="date" className="border px-3 py-2 rounded-md" />
                             </div>
 
                             <div className="flex flex-col gap-1">
                                 <label htmlFor="fromName" className="font-medium">From Name</label>
-                                <input id="fromName" placeholder="Enter From Name" className="border px-3 py-2 rounded-md" />
+                                <input id="fromName" name="fromName" placeholder="Enter From Name" className="border px-3 py-2 rounded-md" />
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="contactDetails" className="font-medium">Contact Details</label>
-                                <input id="contactDetails" placeholder="Enter Contact Details" className="border px-3 py-2 rounded-md" />
+                                <label htmlFor="fromPhone" className="font-medium">Contact Details</label>
+                                <input id="fromPhone" name="fromPhone" placeholder="Enter Contact Details" className="border px-3 py-2 rounded-md" />
                             </div>
                             
                             <div className="col-span-2 flex flex-col gap-1">
                                 <label htmlFor="fromAddress" className="font-medium">From Address</label>
                                 <textarea
                                     id="fromAddress"
+                                    name="fromAddress"
                                     placeholder="Enter From Address"
                                     className="border px-3 py-2 rounded-md"
                                 />
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="subjectShort" className="font-medium">Subject (Short)</label>
+                                <input id="subjectShort" name="subjectShort" placeholder="Enter Short Subject" className="border px-3 py-2 rounded-md" />
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="receiptNo" className="font-medium">Receipt No</label>
+                                <input id="receiptNo" name="receiptNo" placeholder="Enter Receipt No" className="border px-3 py-2 rounded-md" />
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="receiptDate" className="font-medium">Receipt Date</label>
+                                <input id="receiptDate" name="receiptDate" type="date" className="border px-3 py-2 rounded-md" />
                             </div>
 
                             <div className="col-span-2 flex flex-col gap-1">
                                 <label htmlFor="subject" className="font-medium">Subject</label>
                                 <textarea
                                     id="subject"
+                                    name="subject"
                                     placeholder="Enter Subject"
                                     className="border px-3 py-2 rounded-md"
                                 />
                             </div>
-                            
+
+                            <div className="col-span-2 flex flex-col gap-1">
+                                <label htmlFor="description" className="font-medium">Description</label>
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    placeholder="Enter Description"
+                                    className="border px-3 py-2 rounded-md"
+                                />
+                            </div>
                         </div>
                     </section>
 
@@ -157,9 +196,34 @@ const AddEditInward = () => {
                         </h3>
 
                         <div className="grid grid-cols-3 gap-7">
-                            <input placeholder="To Person" className="border px-3 py-2 rounded-md" />
-                            <input placeholder="No of Copies" className="border px-3 py-2 rounded-md" />
-                            <input placeholder="Copy To" className="border px-3 py-2 rounded-md" />
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="toPersonName" className="font-medium">To Person</label>
+                                <input id="toPersonName" name="toPersonName" placeholder="To Person" className="border px-3 py-2 rounded-md" />
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="toDepartmentId" className="font-medium">To Department</label>
+                                <select id="toDepartmentId" name="toDepartmentId" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select Department</option>
+                                </select>
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="noOfEnclosures" className="font-medium">No of Enclosures</label>
+                                <input id="noOfEnclosures" name="noOfEnclosures" type="number" min="0" placeholder="No of Enclosures" className="border px-3 py-2 rounded-md" />
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="copyTo" className="font-medium">Copy To</label>
+                                <input id="copyTo" name="copyTo" placeholder="Copy To" className="border px-3 py-2 rounded-md" />
+                            </div>
+
+                            <div className="flex flex-col gap-1 col-span-2">
+                                <label htmlFor="linkedOutwardId" className="font-medium">Linked Outward</label>
+                                <select id="linkedOutwardId" name="linkedOutwardId" className="border rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select Linked Outward (if any)</option>
+                                </select>
+                            </div>
                         </div>
                     </section>
 
@@ -170,11 +234,19 @@ const AddEditInward = () => {
                         </h3>
 
                         <div className="grid grid-cols-2 gap-7">
-                            <input type="file" />
-                            <textarea
-                                placeholder="Remarks"
-                                className="border px-3 py-2 rounded-md"
-                            />
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="documentPath" className="font-medium">Document</label>
+                                <input id="documentPath" name="documentPath" type="file" />
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="remarks" className="font-medium">Remarks</label>
+                                <textarea
+                                    id="remarks"
+                                    name="remarks"
+                                    placeholder="Remarks"
+                                    className="border px-3 py-2 rounded-md"
+                                />
+                            </div>
                         </div>
                     </section>
 

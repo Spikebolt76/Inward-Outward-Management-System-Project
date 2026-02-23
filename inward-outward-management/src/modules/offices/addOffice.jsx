@@ -7,15 +7,16 @@ import CloseButton from "../../components/closeButton";
 const AddEditOffice = () => {
 
     const [formData, setFormData] = useState({
-        OfficeName: "",
-        InstituteID: "",
-        DepartmentID: "",
-        OpeningDate: "",
-        OpeningInwardNo: 1,
-        OpeningOutwardNo: 1,
-        Remarks: "",
-        CreatedBy: 1, // Hardcoded temporary ID
-        UpdatedBy: 1
+        officeName: "",
+        instituteId: "",
+        departmentId: "",
+        openingDate: "",
+        openingInwardNo: 1,
+        openingOutwardNo: 1,
+        isActive: 1,
+        remarks: "",
+        createdBy: 1, // Hardcoded temporary ID
+        updatedBy: 1
     });
     
     const [helperData, setHelperData] = useState({});
@@ -95,8 +96,8 @@ const AddEditOffice = () => {
                                 placeholder="Enter Office Name"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
-                                value={formData.OfficeName}
-                                onChange={(e) => setFormData({...formData, OfficeName: e.target.value})}
+                                value={formData.officeName}
+                                onChange={(e) => setFormData({...formData, officeName: e.target.value})}
                             />
                         </div>
 
@@ -106,11 +107,11 @@ const AddEditOffice = () => {
                             </label>
                             <select
                                 className="border rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.InstituteID}
-                                onChange={(e) => setFormData({...formData, InstituteID: Number(e.target.value)})} >
+                                value={formData.instituteId}
+                                onChange={(e) => setFormData({...formData, instituteId: Number(e.target.value)})} >
                                 <option value="">Select Institute</option>
                                 {(helperData.institute || []).map((institute) => 
-                                    <option key={institute.InstituteID} value={institute.InstituteID}>{institute.InstituteName}</option>
+                                    <option key={institute.instituteId} value={institute.instituteId}>{institute.InstituteName}</option>
                                 )}
                             </select>
                         </div>
@@ -121,11 +122,11 @@ const AddEditOffice = () => {
                             </label>
                             <select
                                 className="border rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.DepartmentID}
-                                onChange={(e) => setFormData({...formData, DepartmentID: Number(e.target.value)})} >
+                                value={formData.departmentId}
+                                onChange={(e) => setFormData({...formData, departmentId: Number(e.target.value)})} >
                                 <option value="">Select Department</option>
                                 {(helperData.department || []).map((department) => 
-                                    <option key={department.DepartmentID} value={department.DepartmentID}>{department.DepartmentName}</option>
+                                    <option key={department.departmentId} value={department.departmentId}>{department.DepartmentName}</option>
                                 )}
                             </select>
                         </div>
@@ -138,8 +139,8 @@ const AddEditOffice = () => {
                                 type="date"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
-                                value={formData.OpeningDate}
-                                onChange={(e) => setFormData({...formData, OpeningDate: e.target.value})}
+                                value={formData.openingDate}
+                                onChange={(e) => setFormData({...formData, openingDate: e.target.value})}
                             />
                         </div>
 
@@ -149,8 +150,8 @@ const AddEditOffice = () => {
                                 type="number"
                                 min="1"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.OpeningInwardNo}
-                                onChange={(e) => setFormData({...formData, OpeningInwardNo: Number(e.target.value)})}
+                                value={formData.openingInwardNo}
+                                onChange={(e) => setFormData({...formData, openingInwardNo: Number(e.target.value)})}
                             />
                         </div>
 
@@ -160,9 +161,19 @@ const AddEditOffice = () => {
                                 type="number"
                                 min="1"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.OpeningOutwardNo}
-                                onChange={(e) => setFormData({...formData, OpeningOutwardNo: Number(e.target.value)})}
+                                value={formData.openingOutwardNo}
+                                onChange={(e) => setFormData({...formData, openingOutwardNo: Number(e.target.value)})}
                             />
+                        </div>
+
+                        <div className="flex items-center gap-6 pl-8">
+                            <input
+                                type="checkbox"
+                                checked={formData.isActive}
+                                onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
+                                className="cursor-pointer accent-[#1e6784]"
+                            />
+                            <label className="font-medium">Is Active</label>
                         </div>
 
                         <div className="col-span-2 flex flex-col gap-1">
@@ -171,8 +182,8 @@ const AddEditOffice = () => {
                                 rows="3"
                                 placeholder="Enter Remarks"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.Remarks}
-                                onChange={(e) => setFormData({...formData, Remarks: e.target.value})}
+                                value={formData.remarks}
+                                onChange={(e) => setFormData({...formData, remarks: e.target.value})}
                             />
                         </div>
                     </div>

@@ -31,7 +31,7 @@ const Modes = () => {
     }, []);
 
     const handleEdit = (row) => {
-        navigate(`/modes/${row.InOutwardModeID}`);
+        navigate(`/modes/${row.transferModeId}`);
     }
 
     const handleDelete = (row) => {
@@ -41,9 +41,9 @@ const Modes = () => {
 
     const handleConfirmDelete = async (row) => {
         try {
-            await axios.delete(`/api/modes/${row.InOutwardModeID}`);
+            await axios.delete(`/api/modes/${row.transferModeId}`);
 
-            setModes(prev => prev.filter((mode) => mode.InOutwardModeID !== row.InOutwardModeID));
+            setModes(prev => prev.filter((mode) => mode.transferModeId !== row.transferModeId));
             setIsDeleteOpen(false);
         } catch(err) {
             console.log("failed to delete mode data", err);
@@ -62,7 +62,7 @@ const Modes = () => {
                     <div className="flex items-center gap-4 text-[22px]">
                         <FaListUl />
                         <span>
-                            Inward/Outward Modes
+                            Transfer Modes
                         </span>
                     </div>
                     <AddButton />
@@ -73,7 +73,7 @@ const Modes = () => {
                 <DataTable 
                 columns={modeColumns}
                 data={modes}
-                rowKey="InOutwardModeID"
+                rowKey="transferModeId"
                 onView={handleView}
                 onDelete={handleDelete}
                 onEdit={handleEdit}

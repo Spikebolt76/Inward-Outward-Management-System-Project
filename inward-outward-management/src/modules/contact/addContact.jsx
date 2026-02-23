@@ -1,7 +1,7 @@
 import { FaFilePen } from "react-icons/fa6";
 import CloseButton from "../../components/closeButton";
 
-const AddFromTo = () => {
+const AddContact = () => {
     return (
         <div className="flex-1">
             <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
@@ -10,7 +10,7 @@ const AddFromTo = () => {
                 <div className="flex justify-between text-[22px] text-gray-800 px-2">
                     <div className="flex items-center gap-4">
                         <FaFilePen />
-                        <span>Add / Edit From-To</span>
+                        <span>Add / Edit Contact</span>
                     </div>
                     
                     <CloseButton />
@@ -26,7 +26,7 @@ const AddFromTo = () => {
 
                         {/* From / To Name */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-medium">From / To Name</label>
+                            <label className="font-medium">Contact Name</label>
                             <input
                                 type="text"
                                 placeholder="Enter From / To Name"
@@ -56,7 +56,7 @@ const AddFromTo = () => {
 
                         {/* Sequence */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-medium">Sequence</label>
+                            <label className="font-medium">Display Order</label>
                             <input
                                 type="number"
                                 step="0.01"
@@ -86,11 +86,12 @@ const AddFromTo = () => {
                         </div>
 
                         {/* Status */}
-                        <div className="flex items-center gap-3 col-span-2">
+                        <div className="flex items-center gap-6 col-span-2">
                             <input
                                 type="checkbox"
-                                defaultChecked
-                                className="w-4 h-4"
+                                // checked={formData.isActive}
+                                // onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
+                                className="cursor-pointer accent-[#1e6784]"
                             />
                             <label className="font-medium">Is Active</label>
                         </div>
@@ -117,4 +118,4 @@ const AddFromTo = () => {
     );
 };
 
-export default AddFromTo;
+export default AddContact;

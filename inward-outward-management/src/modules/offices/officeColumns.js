@@ -1,23 +1,24 @@
 export const officeColumns = [
     {
-        key: 'OfficeName',
+        key: 'officename',
         header: 'Office Name'
     },
     {
-        key: 'DepartmentName',
+        key: 'departmentName',
         header: 'Department',
-        render: (row) => row.Department?.DepartmentName
+        render: (row) => row.Department?.departmentName
     },
     {
-        key: 'OpeningDate',
-        header: 'Opening Date'
+        key: 'instituteName',
+        header: 'Institute',
+        render: (row) => row.Institute?.instituteName
     },
     {
-        key: 'OpeningInwardNo',
-        header: 'Starting Inward No'
+        key: 'email',
+        header: 'Email'
     },
     {
-        key: 'OpeningOutwardNo',
-        header: 'Starting Outward No'
+        key: 'isActive',
+        header: 'Status'
     }
 ]

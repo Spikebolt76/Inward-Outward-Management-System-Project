@@ -1,25 +1,25 @@
-const InOutwardMode = require("../models/InOutwardMode");
+const TransferMode = require("../models/TransferMode");
 
 const createMode = async (data) => {
-    return await InOutwardMode.create(data);
+    return await TransferMode.create(data);
 }
 
 const getAllModes = async () => {
-    return await InOutwardMode.findAll();
+    return await TransferMode.findAll();
 }
 
 const getMode = async (id) => {
-    return await InOutwardMode.findByPk(id)
+    return await TransferMode.findByPk(id)
 }
 
 const deleteMode = async (id) => {
-    return await InOutwardMode.destroy({
-        where: { InOutwardModeID : id }
+    return await TransferMode.destroy({
+        where: { transferModeId : id }
     })
 }
 
 const updateMode = async (id, data) => {
-    const mode = await InOutwardMode.findByPk(id)
+    const mode = await TransferMode.findByPk(id)
 
     if (!mode) return null;
 

@@ -9,15 +9,15 @@ import PageNotFound from './pages/404NotFound.jsx'
 import Dashboard from './modules/dashboard.jsx'
 import Offices from './modules/offices/offices.jsx'
 import Modes from './modules/modes/modes.jsx'
-import FromTo from './modules/fromTo/fromTo.jsx'
+import Contact from './modules/contact/contact.jsx'
 import Courier from './modules/courier/courier.jsx'
 import Inward from './modules/inward/inward.jsx'
 import Outward from './modules/outward/outward.jsx'
 import InOut from './modules/inOut/inOut.jsx'
 
-import AddModes from './modules/modes/addModes.jsx'
-import AddOffices from './modules/offices/addOffices.jsx'
-import AddFromTo from './modules/fromTo/addFromTo.jsx'
+import AddMode from './modules/modes/addMode.jsx'
+import AddOffice from './modules/offices/addOffice.jsx'
+import AddContact from './modules/contact/addContact.jsx'
 import AddCourier from './modules/courier/addCourier.jsx'
 import AddInward from './modules/inward/addInward.jsx'
 import AddOutward from './modules/outward/addOutward.jsx'
@@ -41,20 +41,20 @@ const router = createBrowserRouter([
         path: "offices",
         element: <Offices />
       },
-      { path: "offices/add", element: <AddOffices />},
-      { path: "offices/:id", element: <AddOffices />},
+      { path: "offices/add", element: <AddOffice />},
+      { path: "offices/:id", element: <AddOffice />},
 
       {
         path: "modes",
         element: <Modes />
       },
-      { path: "modes/add", element: <AddModes />},
+      { path: "modes/add", element: <AddMode />},
       
       {
-        path: "from-to",
-        element: <FromTo />
+        path: "contact",
+        element: <Contact />
       },
-      { path: "from-to/add", element: <AddFromTo /> },
+      { path: "contact/add", element: <AddContact /> },
 
   
       {

@@ -1,5 +1,4 @@
 import { FaListUl } from "react-icons/fa6";
-import { FaPlus } from "react-icons/fa6";
 import DataTable from "../../components/dataTable";
 import { courierColumns } from "./courierColumns";
 import { makeDummyData } from "../dummyData";
@@ -15,7 +14,7 @@ const Courier = () => {
                     <div className="flex items-center gap-4 text-[22px]">
                         <FaListUl />
                         <span>
-                            Couriers List
+                            Courier Company List
                         </span>
                     </div>
                     <AddButton />

@@ -2,30 +2,75 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
 const Institute = sequelize.define('Institute', {
-    InstituteID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    InstituteName: {
-        type: DataTypes.STRING(250),
-        allowNull: false
-    },
-    Address: {
-        type: DataTypes.STRING(500),
-        allowNull: true
-    },
-    IsActive: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true
-    }
+	instituteId: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true,
+		field: 'institute_id'
+	},
+	instituteName: {
+		type: DataTypes.STRING(250),
+		allowNull: false,
+		field: 'institute_name'
+	},
+	shortName: {
+		type: DataTypes.STRING(50),
+		allowNull: true,
+		field: 'short_name'
+	},
+	email: {
+		type: DataTypes.STRING(100),
+		allowNull: true,
+		validate: { isEmail: true }
+	},
+	phoneNo: {
+		type: DataTypes.STRING(20),
+		allowNull: true,
+		field: 'phone_no'
+	},
+	address: {
+		type: DataTypes.STRING(500),
+		allowNull: true
+	},
+	city: {
+		type: DataTypes.STRING(100),
+		allowNull: true
+	},
+	state: {
+		type: DataTypes.STRING(100),
+		allowNull: true
+	},
+	pincode: {
+		type: DataTypes.STRING(20),
+		allowNull: true
+	},
+	isActive: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false,
+		defaultValue: true,
+		field: 'is_active'
+	},
+	remarks: {
+		type: DataTypes.STRING(500),
+		allowNull: true
+	},
+	createdBy: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		references: { model: 'users', key: 'user_id' },
+		field: 'created_by'
+	},
+	updatedBy: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		references: { model: 'users', key: 'user_id' },
+		field: 'updated_by'
+	}
 }, {
-    tableName: 'Institute',
-    freezeTableName: true,
-    timestamps: true,
-    createdAt: 'Created',
-    updatedAt: false  // No Modified column
+	tableName: 'institutes',
+	timestamps: true,
+	createdAt: 'created_at',
+	updatedAt: 'updated_at'
 });
 
 module.exports = Institute;

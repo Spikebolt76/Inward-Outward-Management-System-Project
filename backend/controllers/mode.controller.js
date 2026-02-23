@@ -14,7 +14,7 @@ const createMode = async (req, res) => {
     } catch(err) {
         res.status(500).json({
             success: false,
-            message: err.message || "Failed to create mode"
+            message: err.message || "Failed to create transfer-mode"
         });
     }
 }

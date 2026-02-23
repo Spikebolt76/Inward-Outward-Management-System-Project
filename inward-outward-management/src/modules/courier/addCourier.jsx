@@ -127,6 +127,16 @@ const AddEditCourierCompany = () => {
                             />
                         </div>
 
+                        {/* Status */}
+                        <div className="flex items-center gap-6 pl-8">
+                            <input
+                                type="checkbox"
+                                defaultChecked
+                                className="cursor-pointer accent-[#1e6784]"
+                            />
+                            <label className="font-medium">Is Active</label>
+                        </div>
+
                         {/* Address */}
                         <div className="col-span-2 flex flex-col gap-1">
                             <label

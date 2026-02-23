@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 const AddEditMode = () => {
     
     const [formData, setFormData] = useState({
-        InOutwardModeName: "",
+        modeName: "",
         IsActive: true,
-        Remarks: "",
-        CreatedBy: 1, // Hardcoded temporary ID
-        UpdatedBy: 1
+        remarks: "",
+        isActive: 1,
+        createdBy: 1, // Hardcoded temporary ID
+        updatedBy: 1
     });
 
     const navigate = useNavigate();
@@ -76,30 +77,30 @@ const AddEditMode = () => {
                                 placeholder="Enter Mode Name"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
-                                value={formData.InOutwardModeName}
-                                onChange={(e) => setFormData({...formData, InOutwardModeName: e.target.value})}
+                                value={formData.modeName}
+                                onChange={(e) => setFormData({...formData, modeName: e.target.value})}
                             />
                         </div>
 
                         <div className="flex flex-col gap-1">
-                            <label className="font-medium">Sequence</label>
+                            <label className="font-medium">Display Order</label>
                             <input
                                 type="number"
                                 step="1"
                                 min={1}
-                                placeholder="Enter Sequence"
+                                placeholder="Enter Display Order"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.Sequence}
-                                onChange={(e) => setFormData({...formData, Sequence: e.target.value})}
+                                value={formData.displayOrder}
+                                onChange={(e) => setFormData({...formData, displayOrder: e.target.value})}
                             />
                         </div>
 
-                        <div className="flex items-center gap-3 mt-6">
+                        <div className="flex items-center gap-6 pl-8">
                             <input
                                 type="checkbox"
-                                className="w-4 h-4"
-                                checked={formData.IsActive}
-                                onChange={(e) => setFormData({...formData, IsActive: e.target.checked})}
+                                checked={formData.isActive}
+                                onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
+                                className="cursor-pointer accent-[#1e6784]"
                             />
                             <label className="font-medium">Is Active</label>
                         </div>
@@ -110,8 +111,8 @@ const AddEditMode = () => {
                                 rows="3"
                                 placeholder="Enter Remarks"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.Remarks}
-                                onChange={(e) => setFormData({...formData, Remarks: e.target.value})}
+                                value={formData.remarks}
+                                onChange={(e) => setFormData({...formData, remarks: e.target.value})}
                             />
                         </div>
                     </div>

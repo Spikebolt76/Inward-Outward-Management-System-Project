@@ -1,43 +1,28 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
-const FinancialYear = sequelize.define('FinancialYear', {
-    finYearId: {
+const TransferMode = sequelize.define('TransferMode', {
+    transferModeId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        field: 'fin_year_id'
+        field: 'transfer_mode_id'
     },
-    yearName: {
-        type: DataTypes.STRING(20),
+    modeName: {
+        type: DataTypes.STRING(100),
         allowNull: false,
-        unique: true,
-        field: 'year_name'
-        // e.g. "2024-25"
-    },
-    startDate: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
-        field: 'start_date'
-    },
-    endDate: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
-        field: 'end_date'
-    },
-    isCurrent: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-        field: 'is_current'
-        // Only one record should have is_current = true at a time.
-        // Enforce this in application logic when switching years.
+        field: 'mode_name'
     },
     isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true,
         field: 'is_active'
+    },
+    displayOrder: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        field: 'display_order'
     },
     remarks: {
         type: DataTypes.STRING(500),
@@ -56,10 +41,10 @@ const FinancialYear = sequelize.define('FinancialYear', {
         field: 'updated_by'
     }
 }, {
-    tableName: 'financial_years',
+    tableName: 'transfer_modes',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at'
 });
 
-module.exports = FinancialYear;
+module.exports = TransferMode;

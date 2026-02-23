@@ -37,7 +37,7 @@ const Offices = () => {
     }
 
     const handleEdit = (row) => {
-        navigate(`/offices/${row.InOutwardOfficeID}`);
+        navigate(`/offices/${row.officeId}`);
     }
 
     const handleDelete = (row) => {
@@ -47,9 +47,9 @@ const Offices = () => {
 
     const handleConfirmDelete = async (row) => {
         try {
-            await axios.delete(`/api/offices/${row.InOutwardOfficeID}`);
+            await axios.delete(`/api/offices/${row.officeId}`);
 
-            setOffices(prev => prev.filter(office => office.InOutwardOfficeID !== row.InOutwardOfficeID));
+            setOffices(prev => prev.filter(office => office.officeId !== row.officeId));
             setIsDeleteOpen(false);
         } catch(err) {
             console.log("failed to delete office data", err);
@@ -74,7 +74,7 @@ const Offices = () => {
                 <DataTable 
                     columns={officeColumns}
                     data={offices}
-                    rowKey="InOutwardOfficeID"
+                    rowKey="officeId"
                     onView={handleView}
                     onDelete={handleDelete}
                     onEdit={handleEdit}

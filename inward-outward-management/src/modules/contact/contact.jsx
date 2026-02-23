@@ -1,13 +1,12 @@
 import { FaListUl } from "react-icons/fa6";
-import { FaPlus } from "react-icons/fa6";
 import DataTable from "../../components/dataTable";
-import { fromToColumns } from "./fromToColumns";
+import { contactColumns } from "./contactColumns";
 import { makeDummyData } from "../dummyData";
 import AddButton from "../../components/addButton";
 
-const data = makeDummyData(fromToColumns, 3);
+const data = makeDummyData(contactColumns, 3);
 
-const FromTo = () => {
+const Contact = () => {
     return(
         <div className="flex-1">
            <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
@@ -15,7 +14,7 @@ const FromTo = () => {
                     <div className="flex items-center gap-4 text-[22px]">
                         <FaListUl />
                         <span>
-                            From/To List
+                            Contact List
                         </span>
                     </div>
                    <AddButton />
@@ -24,7 +23,7 @@ const FromTo = () => {
                 <hr className="border-gray-400 my-6 -mx-6"/>
 
                 <DataTable 
-                columns={fromToColumns}
+                columns={contactColumns}
                 data={data}
                 />
             </div>
@@ -32,4 +31,4 @@ const FromTo = () => {
     );
 }
 
-export default FromTo;
+export default Contact;

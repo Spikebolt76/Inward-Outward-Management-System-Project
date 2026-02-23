@@ -1,14 +1,14 @@
 export const modeColumns = [
     {
-        key: 'InOutwardModeName',
+        key: 'modeName',
         header: 'Mode Name'
     },
     {
-        key: 'IsActive',
+        key: 'isActive',
         header: 'Status'
     },
     {
-        key: 'Sequence',
-        header: 'Sequence'  
+        key: 'Display Order',
+        header: 'displayOrder'  
     }
 ]

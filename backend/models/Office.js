@@ -1,45 +1,60 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/connection');
 
-const CourierCompany = sequelize.define('CourierCompany', {
-    courierCompanyId: {
+const Office = sequelize.define('Office', {
+    officeId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        field: 'courier_company_id'
+        field: 'office_id'
     },
-    companyName: {
-        type: DataTypes.STRING(150),
+    officeName: {
+        type: DataTypes.STRING(250),
         allowNull: false,
-        field: 'company_name'
+        field: 'office_name'
     },
-    contactPersonName: {
-        type: DataTypes.STRING(100),
-        allowNull: true,
-        field: 'contact_person_name'
+    instituteId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: 'institutes', key: 'institute_id' },
+        field: 'institute_id'
     },
-    phoneNo: {
-        type: DataTypes.STRING(20),
+    departmentId: {
+        type: DataTypes.INTEGER,
         allowNull: true,
-        field: 'phone_no'
+        references: { model: 'departments', key: 'department_id' },
+        field: 'department_id'
     },
     email: {
         type: DataTypes.STRING(100),
         allowNull: true,
         validate: { isEmail: true }
     },
-    website: {
-        type: DataTypes.STRING(100),
-        allowNull: true
+    phoneNo: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+        field: 'phone_no'
     },
     address: {
         type: DataTypes.STRING(500),
         allowNull: true
     },
-    defaultRate: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
-        field: 'default_rate'
+    openingDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        field: 'opening_date'
+    },
+    openingInwardNo: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        field: 'opening_inward_no'
+    },
+    openingOutwardNo: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        field: 'opening_outward_no'
     },
     isActive: {
         type: DataTypes.BOOLEAN,
@@ -64,10 +79,10 @@ const CourierCompany = sequelize.define('CourierCompany', {
         field: 'updated_by'
     }
 }, {
-    tableName: 'courier_companies',
+    tableName: 'offices',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at'
 });
 
-module.exports = CourierCompany;
+module.exports = Office;
