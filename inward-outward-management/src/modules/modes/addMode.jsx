@@ -99,6 +99,7 @@ const AddEditMode = () => {
                                 required
                                 value={formData.modeName}
                                 onChange={handleChange}
+                                name="modeName"
                             />
                         </div>
 
@@ -112,6 +113,7 @@ const AddEditMode = () => {
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 value={formData.displayOrder}
                                 onChange={handleChange}
+                                name="displayOrder"
                             />
                         </div>
 
@@ -121,6 +123,7 @@ const AddEditMode = () => {
                                 checked={formData.isActive}
                                 onChange={handleChange}
                                 className="cursor-pointer accent-[#1e6784]"
+                                name="isActive"
                             />
                             <label className="font-medium">Is Active</label>
                         </div>
@@ -133,6 +136,7 @@ const AddEditMode = () => {
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 value={formData.remarks}
                                 onChange={handleChange}
+                                name="remarks"
                             />
                         </div>
                     </div>

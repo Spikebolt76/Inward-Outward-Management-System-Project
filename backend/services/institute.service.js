@@ -23,9 +23,9 @@ const updateInstitute = async (id, data) => {
 
     if (!institute) return null;
 
-    await Institute.update(data);
+    await institute.update(data);
 
-    return Institute;
+    return institute;
 }
 
 module.exports = { createInstitute, getAllInstitutes, getInstitute, deleteInstitute, updateInstitute }
