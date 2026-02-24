@@ -21,7 +21,7 @@ const Sidebar = ({ open }) => {
                             label={item.label}
                             to={item.to}
                             open={open}/> 
-                        {['Dashboard', 'In-Out'].includes(item.label) && (
+                        {['Dashboard', 'Users'].includes(item.label) && (
                             <hr className='border-gray-400 my-5'/>
                         )}
                     </React.Fragment>

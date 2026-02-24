@@ -1,121 +1,287 @@
 import { FaFilePen } from "react-icons/fa6";
 import CloseButton from "../../components/closeButton";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const AddContact = () => {
+const CONTACT_TYPES = ["Client", "Vendor", "Department", "Branch", "Government", "Other"];
+
+const AddEditContact = () => {
+
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const isEditMode = Boolean(id);
+
+    const [formData, setFormData] = useState({
+        contactName: "",
+        contactType: "Other",
+        personName: "",
+        email: "",
+        phoneNo: "",
+        address: "",
+        city: "",
+        state: "",
+        pincode: "",
+        displayOrder: "",
+        remarks: "",
+        isActive: true,
+    });
+
+    useEffect(() => {
+        if (!id) return;
+
+        const fetchFormData = async () => {
+            try {
+                const { data: { data } } = await axios.get(`/api/contacts/${id}`);
+                setFormData({
+                    contactName: data.contactName || "",
+                    contactType: data.contactType || "Other",
+                    personName: data.personName || "",
+                    email: data.email || "",
+                    phoneNo: data.phoneNo || "",
+                    address: data.address || "",
+                    city: data.city || "",
+                    state: data.state || "",
+                    pincode: data.pincode || "",
+                    displayOrder: data.displayOrder ?? "",
+                    remarks: data.remarks || "",
+                    isActive: data.isActive ?? true,
+                });
+            } catch (err) {
+                console.log("Failed to load form data", err);
+            }
+        };
+
+        fetchFormData();
+    }, [id]);
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            if (isEditMode) {
+                await axios.put(`/api/contacts/${id}`, formData);
+            } else {
+                await axios.post(`/api/contacts`, formData);
+            }
+            navigate("/contacts");
+        } catch (err) {
+            console.log("Failed to save contact", err);
+        }
+    };
+
+    const handleReset = () => {
+        setFormData({
+            contactName: "",
+            contactType: "Other",
+            personName: "",
+            email: "",
+            phoneNo: "",
+            address: "",
+            city: "",
+            state: "",
+            pincode: "",
+            displayOrder: "",
+            remarks: "",
+            isActive: true,
+        });
+    };
+
+    const inputClass =
+        "border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400";
+
     return (
         <div className="flex-1">
             <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
 
-                {/* Header */}
                 <div className="flex justify-between text-[22px] text-gray-800 px-2">
                     <div className="flex items-center gap-4">
                         <FaFilePen />
-                        <span>Add / Edit Contact</span>
+                        <span>{isEditMode ? "Edit Contact" : "Add Contact"}</span>
                     </div>
-                    
                     <CloseButton />
                 </div>
 
                 <hr className="border-gray-300 my-6 -mx-6" />
 
-                {/* Form */}
-                <form className="text-[15px] px-4 py-2">
-
-                    {/* Grid */}
+                <form className="text-[15px] px-4 py-2" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-x-10 gap-y-7">
 
-                        {/* From / To Name */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-medium">Contact Name</label>
+                            <label className="font-medium">Contact Name <span className="text-red-500">*</span></label>
                             <input
                                 type="text"
-                                placeholder="Enter From / To Name"
-                                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                name="contactName"
+                                placeholder="Enter Contact Name"
+                                className={inputClass}
+                                value={formData.contactName}
+                                onChange={handleChange}
+                                required
                             />
                         </div>
 
-                        {/* Person Name */}
+                        <div className="flex flex-col gap-1">
+                            <label className="font-medium">Contact Type <span className="text-red-500">*</span></label>
+                            <select
+                                name="contactType"
+                                className={inputClass}
+                                value={formData.contactType}
+                                onChange={handleChange}
+                                required
+                            >
+                                {CONTACT_TYPES.map((type) => (
+                                    <option key={type} value={type}>{type}</option>
+                                ))}
+                            </select>
+                        </div>
+
                         <div className="flex flex-col gap-1">
                             <label className="font-medium">Contact Person</label>
                             <input
                                 type="text"
+                                name="personName"
                                 placeholder="Enter Person Name"
-                                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                className={inputClass}
+                                value={formData.personName}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Place */}
                         <div className="flex flex-col gap-1">
-                            <label className="font-medium">Place</label>
+                            <label className="font-medium">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter Email"
+                                className={inputClass}
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <label className="font-medium">Phone No</label>
                             <input
                                 type="text"
-                                placeholder="Enter Place"
-                                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                name="phoneNo"
+                                placeholder="Enter Phone Number"
+                                className={inputClass}
+                                value={formData.phoneNo}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Sequence */}
                         <div className="flex flex-col gap-1">
                             <label className="font-medium">Display Order</label>
                             <input
                                 type="number"
-                                step="0.01"
-                                placeholder="Enter Sequence"
-                                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                name="displayOrder"
+                                placeholder="Enter Display Order"
+                                className={inputClass}
+                                value={formData.displayOrder}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Address */}
                         <div className="col-span-2 flex flex-col gap-1">
                             <label className="font-medium">Address</label>
                             <textarea
                                 rows="3"
+                                name="address"
                                 placeholder="Enter Address"
-                                className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                className={`${inputClass} resize-none`}
+                                value={formData.address}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Remarks */}
+                        <div className="flex flex-col gap-1">
+                            <label className="font-medium">City</label>
+                            <input
+                                type="text"
+                                name="city"
+                                placeholder="Enter City"
+                                className={inputClass}
+                                value={formData.city}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <label className="font-medium">State</label>
+                            <input
+                                type="text"
+                                name="state"
+                                placeholder="Enter State"
+                                className={inputClass}
+                                value={formData.state}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <label className="font-medium">Pincode</label>
+                            <input
+                                type="text"
+                                name="pincode"
+                                placeholder="Enter Pincode"
+                                className={inputClass}
+                                value={formData.pincode}
+                                onChange={handleChange}
+                            />
+                        </div>
+
                         <div className="col-span-2 flex flex-col gap-1">
                             <label className="font-medium">Remarks</label>
                             <textarea
                                 rows="2"
+                                name="remarks"
                                 placeholder="Enter Remarks"
-                                className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                className={`${inputClass} resize-none`}
+                                value={formData.remarks}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Status */}
-                        <div className="flex items-center gap-6 col-span-2">
+                        <div className="flex items-center gap-4 col-span-2">
                             <input
                                 type="checkbox"
-                                // checked={formData.isActive}
-                                // onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
+                                name="isActive"
+                                id="isActive"
+                                checked={formData.isActive}
+                                onChange={handleChange}
                                 className="cursor-pointer accent-[#1e6784]"
                             />
-                            <label className="font-medium">Is Active</label>
+                            <label htmlFor="isActive" className="font-medium cursor-pointer">Is Active</label>
                         </div>
                     </div>
 
-                    {/* Buttons */}
                     <div className="flex justify-center gap-6 mt-10">
                         <button
                             type="submit"
-                            className="px-8 py-2 rounded-md bg-[#1e6784] text-white hover:bg-[#175067] transition cursor-pointer">
+                            className="px-8 py-2 rounded-md bg-[#1e6784] text-white hover:bg-[#175067] transition cursor-pointer"
+                        >
                             Save
                         </button>
-
                         <button
-                            type="reset"
-                            className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer">
+                            type="button"
+                            onClick={handleReset}
+                            className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer"
+                        >
                             Clear
                         </button>
                     </div>
-
                 </form>
             </div>
         </div>
     );
 };
 
-export default AddContact;
+export default AddEditContact;

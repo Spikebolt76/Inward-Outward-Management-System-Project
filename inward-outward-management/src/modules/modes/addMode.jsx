@@ -8,11 +8,9 @@ const AddEditMode = () => {
     
     const [formData, setFormData] = useState({
         modeName: "",
-        IsActive: true,
+        isActive: true,
         remarks: "",
-        isActive: 1,
-        createdBy: 1, // Hardcoded temporary ID
-        updatedBy: 1
+        displayOrder: "",
     });
 
     const navigate = useNavigate();
@@ -24,15 +22,28 @@ const AddEditMode = () => {
 
         const fetchFormData = async () => {
             try {
-                const { data } = await axios.get(`/api/modes/${id}`);
+                const { data: { data } } = await axios.get(`/api/modes/${id}`);
 
-                setFormData(data.data);
+                setFormData({
+                    modeName: data.modeName || "",
+                    isActive: data.isActive ?? true,
+                    displayOrder: data.displayOrder || "",
+                    remarks: data.remarks || "",
+                });
             } catch(err) {
-                console.log("failed to load mode data", err)
+                console.log("failed to load form data", err)
             }
         }
         fetchFormData();
     }, [id]);
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,6 +59,15 @@ const AddEditMode = () => {
             console.log("failed to save mode", err)
         }
     }
+
+    const handleReset = () => {
+        setFormData({
+            modeName: "",
+            isActive: true,
+            remarks: "",
+            displayOrder: "",
+        });
+    };
 
     return (
         <div className="flex-1">
@@ -78,7 +98,7 @@ const AddEditMode = () => {
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
                                 value={formData.modeName}
-                                onChange={(e) => setFormData({...formData, modeName: e.target.value})}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -91,7 +111,7 @@ const AddEditMode = () => {
                                 placeholder="Enter Display Order"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 value={formData.displayOrder}
-                                onChange={(e) => setFormData({...formData, displayOrder: e.target.value})}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -99,7 +119,7 @@ const AddEditMode = () => {
                             <input
                                 type="checkbox"
                                 checked={formData.isActive}
-                                onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
+                                onChange={handleChange}
                                 className="cursor-pointer accent-[#1e6784]"
                             />
                             <label className="font-medium">Is Active</label>
@@ -112,7 +132,7 @@ const AddEditMode = () => {
                                 placeholder="Enter Remarks"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 value={formData.remarks}
-                                onChange={(e) => setFormData({...formData, remarks: e.target.value})}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -125,7 +145,8 @@ const AddEditMode = () => {
                         </button>
 
                         <button
-                            type="reset"
+                            type="button"
+                            onClick={handleReset}
                             className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer">
                             Clear
                         </button>

@@ -35,7 +35,7 @@ const DataTable = ({
                             {columns.map((col) => (
                                 <td key={col.key} className="px-6 py-4">
                                     {col.render ? col.render(row) : 
-                                        col.key === 'IsActive' 
+                                        col.key === 'isActive' 
                                             ? (row[col.key] ? <ActiveBadge /> : <InactiveBadge />)
                                             : row[col.key]
                                     }

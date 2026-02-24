@@ -1,5 +1,6 @@
-import { FaOutdent, FaIndent, FaRightLeft, FaBuilding, FaBoxesPacking, FaGear, FaB } from "react-icons/fa6";
+import { FaOutdent, FaIndent, FaRightLeft, FaBuilding, FaBoxesPacking, FaGear, FaB, FaUser, FaBuildingColumns } from "react-icons/fa6";
 import { TbLayoutDashboardFilled, TbReplaceFilled } from "react-icons/tb"
+import { HiMiniBuildingOffice2 } from "react-icons/hi2"
 import { TiFlowSwitch } from "react-icons/ti";
 
 export const sidebarItems = [
@@ -10,6 +11,8 @@ export const sidebarItems = [
     {label: "Courier Company", icon: FaBoxesPacking, to: '/courier'},
     {label: "Inward", icon: FaIndent, to: '/inward'},
     {label: "Outward", icon: FaOutdent, to: '/outward'},
-    {label: "In-Out", icon: TbReplaceFilled, to: '/in-out'},
+    {label: "Users", icon: FaUser, to: '/users'},
+    {label: "Institutes", icon: FaBuildingColumns, to: '/institutes'},
+    {label: "Departments", icon: HiMiniBuildingOffice2, to: '/departments'},
     {label: "Settings", icon: FaGear, to: '/settings'}
 ];  

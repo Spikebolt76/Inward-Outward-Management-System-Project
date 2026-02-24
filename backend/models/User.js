@@ -68,6 +68,12 @@ const User = sequelize.define('User', {
 		allowNull: true,
 		field: 'last_login_at'
 	},
+	mustChangePassword: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false,
+		defaultValue: true,  // always forced on new users
+		field: 'must_change_password'
+	},
 	remarks: {
 		type: DataTypes.STRING(500),
 		allowNull: true
@@ -76,9 +82,12 @@ const User = sequelize.define('User', {
 	tableName: 'users',
 	timestamps: true,
 	createdAt: 'created_at',
-	updatedAt: 'updated_at'
+	updatedAt: 'updated_at',
+    defaultScope: {
+        attributes: { exclude: ['passwordHash'] }
+    }
 	// No created_by/updated_by to avoid circular self-reference.
 	// First SuperAdmin is seeded directly into the DB.
-});
+},);
 
 module.exports = User;

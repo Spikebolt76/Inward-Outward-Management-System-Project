@@ -111,7 +111,7 @@ const AddEditOffice = () => {
                                 onChange={(e) => setFormData({...formData, instituteId: Number(e.target.value)})} >
                                 <option value="">Select Institute</option>
                                 {(helperData.institute || []).map((institute) => 
-                                    <option key={institute.instituteId} value={institute.instituteId}>{institute.InstituteName}</option>
+                                    <option key={institute.instituteId} value={institute.instituteId}>{institute.instituteName}</option>
                                 )}
                             </select>
                         </div>
@@ -126,7 +126,7 @@ const AddEditOffice = () => {
                                 onChange={(e) => setFormData({...formData, departmentId: Number(e.target.value)})} >
                                 <option value="">Select Department</option>
                                 {(helperData.department || []).map((department) => 
-                                    <option key={department.departmentId} value={department.departmentId}>{department.DepartmentName}</option>
+                                    <option key={department.departmentId} value={department.departmentId}>{department.departmentName}</option>
                                 )}
                             </select>
                         </div>

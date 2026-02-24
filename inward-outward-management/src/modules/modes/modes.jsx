@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import ViewModeModal from "./viewModeModal";
 
 const Modes = () => {
+    
     const navigate = useNavigate();
     const [modes, setModes] = useState([]);
     const [rowToDelete, setRowToDelete] = useState(null);

@@ -1,6 +1,4 @@
-const Office = require('../models/Office');
-const Institute = require('../models/Institute');
-const Department = require('../models/Department');
+const { Office, Institute, Department } = require("../models/associations");
 
 const createOffice = async (data) => {
     return await Office.create(data);
@@ -9,8 +7,8 @@ const createOffice = async (data) => {
 const getAllOffices = async () => {
     return await Office.findAll({
         include: [
-            { model: Institute, as: 'Institute' },
-            { model: Department, as: 'Department' }
+            { model: Institute, as: 'institute' },
+            { model: Department, as: 'department' }
         ]
     });
 }
@@ -18,8 +16,8 @@ const getAllOffices = async () => {
 const getOffice = async (id) => {
     return await Office.findByPk(id, {
         include: [
-            { model: Institute, as: 'Institute' },
-            { model: Department, as: 'Department' }
+            { model: Institute, as: 'institute' },
+            { model: Department, as: 'department' }
         ]
     });
 }
@@ -37,7 +35,12 @@ const updateOffice = async (id, data) => {
 
     await office.update(data);
 
-    return office;
+    return await Office.findByPk(id, {
+        include: [
+            { model: Institute, as: 'institute' },
+            { model: Department, as: 'department' }
+        ]
+    });
 }
 
 module.exports = { createOffice, getAllOffices, getOffice, deleteOffice, updateOffice }

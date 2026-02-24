@@ -1,12 +1,53 @@
 import { FaListUl } from "react-icons/fa6";
 import DataTable from "../../components/dataTable";
 import { contactColumns } from "./contactColumns";
-import { makeDummyData } from "../dummyData";
 import AddButton from "../../components/addButton";
-
-const data = makeDummyData(contactColumns, 3);
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ConfirmDeleteModal from "../../components/confirmDeleteModal";
 
 const Contact = () => {
+
+    const [contacts, setContacts] = useState([]);
+    const navigate = useNavigate();
+    const [rowToDelete, setRowToDelete] = useState(null);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchContacts = async () => {
+            try {
+                const { data } = await axios.get("/api/contacts"); 
+
+                setContacts(data.data);
+            } catch(err) {
+                console.log("failed to load contacts data", err);
+            }
+        }
+
+        fetchContacts();
+    }, []);
+
+    const handleEdit = (row) => {
+        navigate(`/contacts/${row.contactId}`);
+    }
+
+    const handleDelete = (row) => {
+        setRowToDelete(row);
+        setIsDeleteOpen(true);
+    }
+
+    const handleConfirmDelete = async (row) => {
+        try {
+            await axios.delete(`/api/contacts/${row.contactId}`);
+
+            setContacts(prev => prev.filter((contact) => contact.contactId !== row.contactId));
+            setIsDeleteOpen(false);
+        } catch(err) {
+            console.log("failed to delete mode data", err);
+        }
+    }
+
     return(
         <div className="flex-1">
            <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
@@ -24,9 +65,15 @@ const Contact = () => {
 
                 <DataTable 
                 columns={contactColumns}
-                data={data}
+                data={contacts}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
                 />
             </div>
+
+            {isDeleteOpen && <ConfirmDeleteModal
+            onCancel={() => setIsDeleteOpen(false)}
+            onConfirm={() => handleConfirmDelete(rowToDelete)} />}
         </div>
     );
 }

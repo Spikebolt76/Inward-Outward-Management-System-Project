@@ -7,7 +7,7 @@ async function startConnection() {
         await sequelize.authenticate();
         console.log("Connected to MySQL database");
 
-        await sequelize.sync({ alter: true });
+        await sequelize.sync();
         console.log("Tables synced");
     } catch(err) {
         console.log("Error: ", err)

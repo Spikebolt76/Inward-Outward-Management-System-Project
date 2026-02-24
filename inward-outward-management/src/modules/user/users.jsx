@@ -1,35 +1,34 @@
 import { FaListUl } from "react-icons/fa6";
 import DataTable from "../../components/dataTable";
-import { officeColumns } from "./officeColumns";
+import { userColumns } from "./userColumns";
 import { useNavigate } from "react-router-dom";
 import AddButton from "../../components/addButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import ConfirmDeleteModal from "../../components/confirmDeleteModal";
-import ViewOfficeModal from "./viewOfficeModal";
 
-const Offices = () => {
+const Users = () => {
     const navigate = useNavigate();
-    const [offices, setOffices] = useState([]);
+    const [users, setUsers] = useState([]);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [rowToDelete, setRowToDelete] = useState(null);
     const [isViewOpen, setIsViewOpen] = useState(false);
     const [rowToView, setRowToView] = useState(null);
 
     useEffect(() => {
-        const fetchOfficeData = async () => {
+        const fetchUserData = async () => {
             try{
                 const { data }
-                    = await axios.get("/api/offices");
-                
-                setOffices(data.data || []); 
+                    = await axios.get("/api/users");
+                console.log(data)
+                setUsers(data.data); 
             } catch(err) {
-                console.log("failed to load office data", err);
+                console.log("failed to load user data", err);
             }   
         }
 
-        fetchOfficeData();
-    }, []); //i better don't forget to put the empty dependency array 
+        fetchUserData();
+    }, []); 
 
     const handleView = (row) => {
         setIsViewOpen(true);
@@ -37,7 +36,7 @@ const Offices = () => {
     }
 
     const handleEdit = (row) => {
-        navigate(`/offices/${row.officeId}`);
+        navigate(`/users/${row.userId}`);
     }
 
     const handleDelete = (row) => {
@@ -47,12 +46,12 @@ const Offices = () => {
 
     const handleConfirmDelete = async (row) => {
         try {
-            await axios.delete(`/api/offices/${row.officeId}`);
+            await axios.delete(`/api/users/${row.userId}`);
 
-            setOffices(prev => prev.filter(office => office.officeId !== row.officeId));
+            setUsers(prev => prev.filter(user => user.userId !== row.userId));
             setIsDeleteOpen(false);
         } catch(err) {
-            console.log("failed to delete office data", err);
+            console.log("failed to delete user data", err);
         }
     }
 
@@ -63,7 +62,7 @@ const Offices = () => {
                     <div className="flex items-center gap-4 text-[22px]">
                         <FaListUl />
                         <span>
-                            Offices List
+                            Users List
                         </span>
                     </div>
                     <AddButton />
@@ -72,9 +71,9 @@ const Offices = () => {
                 <hr className="border-gray-400 my-6 -mx-6"/>
 
                 <DataTable 
-                    columns={officeColumns}
-                    data={offices}
-                    rowKey="officeId"
+                    columns={userColumns}
+                    data={users}
+                    rowKey="userId"
                     onView={handleView}
                     onDelete={handleDelete}
                     onEdit={handleEdit}
@@ -85,7 +84,7 @@ const Offices = () => {
                 onCancel={() => setIsDeleteOpen(false)}
                 onConfirm={() => handleConfirmDelete(rowToDelete)}/>}
 
-            {isViewOpen && <ViewOfficeModal 
+            {isViewOpen && <ViewUserModal 
                 onEdit={handleEdit} 
                 onCancel={() => setIsViewOpen(false)}
                 data={rowToView}/>}
@@ -94,4 +93,4 @@ const Offices = () => {
     );
 }
 
-export default Offices;
+export default Users;

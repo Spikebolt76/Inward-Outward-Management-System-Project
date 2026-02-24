@@ -6,12 +6,12 @@ export const officeColumns = [
     {
         key: 'departmentName',
         header: 'Department',
-        render: (row) => row.Department?.departmentName
+        render: (row) => row.department?.departmentName
     },
     {
         key: 'instituteName',
         header: 'Institute',
-        render: (row) => row.Institute?.instituteName
+        render: (row) => row.institute?.instituteName
     },
     {
         key: 'email',
