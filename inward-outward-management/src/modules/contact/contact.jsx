@@ -9,24 +9,12 @@ import ConfirmDeleteModal from "../../components/confirmDeleteModal";
 
 const Contact = () => {
 
-    const [contacts, setContacts] = useState([]);
     const navigate = useNavigate();
+    const [contacts, setContacts] = useState([]);
     const [rowToDelete, setRowToDelete] = useState(null);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-    useEffect(() => {
-        const fetchContacts = async () => {
-            try {
-                const { data } = await axios.get("/api/contacts"); 
-
-                setContacts(data.data);
-            } catch(err) {
-                console.log("failed to load contacts data", err);
-            }
-        }
-
-        fetchContacts();
-    }, []);
+    
 
     const handleEdit = (row) => {
         navigate(`/contacts/${row.contactId}`);

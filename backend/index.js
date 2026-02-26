@@ -10,6 +10,7 @@ const departmentRoutes = require('./routes/department.route');
 const modeRoutes = require('./routes/mode.route');
 const contactRoutes = require('./routes/contact.route');
 const userRoutes = require('./routes/user.route');
+const courierRoutes = require('./routes/courier.route');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
@@ -20,6 +21,7 @@ app.use('/api/departments', departmentRoutes);
 app.use('/api/modes', modeRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/couriers', courierRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log("Server listening on PORT = ", process.env.PORT);

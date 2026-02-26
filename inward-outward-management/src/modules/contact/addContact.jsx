@@ -11,8 +11,7 @@ const AddEditContact = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const isEditMode = Boolean(id);
-
-    const [formData, setFormData] = useState({
+    const initialData = {
         contactName: "",
         contactType: "Other",
         personName: "",
@@ -25,7 +24,8 @@ const AddEditContact = () => {
         displayOrder: "",
         remarks: "",
         isActive: true,
-    });
+    };
+    const [formData, setFormData] = useState(initialData);
 
     useEffect(() => {
         if (!id) return;
@@ -65,6 +65,7 @@ const AddEditContact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         try {
             if (isEditMode) {
                 await axios.put(`/api/contacts/${id}`, formData);
@@ -78,20 +79,7 @@ const AddEditContact = () => {
     };
 
     const handleReset = () => {
-        setFormData({
-            contactName: "",
-            contactType: "Other",
-            personName: "",
-            email: "",
-            phoneNo: "",
-            address: "",
-            city: "",
-            state: "",
-            pincode: "",
-            displayOrder: "",
-            remarks: "",
-            isActive: true,
-        });
+        setFormData(initialData);
     };
 
     const inputClass =

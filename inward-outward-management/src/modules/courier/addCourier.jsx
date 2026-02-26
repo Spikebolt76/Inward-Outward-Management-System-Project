@@ -1,12 +1,85 @@
 import { FaFilePen } from "react-icons/fa6";
 import CloseButton from "../../components/closeButton";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const AddEditCourierCompany = () => {
+
+    const initialData = {
+        companyName: "",
+        contactPersonName: "",
+        phoneNo: "",
+        email: "",
+        website: "",
+        address: "",
+        defaultRate: 0,
+        isActive: true,
+        remarks: ""
+    }
+    const navigate = useNavigate();
+    const id = useParams();
+    const isEditMode = Boolean(id); 
+
+    const [formData, setFormData] = useState(initialData);
+
+    useEffect(() => {
+        if (!id) return;
+
+        const fetchFormData = async () => {
+            try {
+                const { data: { data } } = await axios.get(`/api/couriers/${id}`);
+
+                setFormData({
+                    companyName: data.companyName || "",
+                    contactPersonName: data.contactPersonName || "",
+                    phoneNo: data.phoneNo || "",
+                    email: data.email || "",
+                    website: data.website || "",
+                    address: data.address || "",
+                    defaultRate: data.defaultRate ?? "",
+                    isActive: data.isActive ?? true,
+                    remarks: data.remarks || ""
+                });
+            } catch(err) {
+                console.log("failed to load form data", err);
+            }
+        }
+
+        fetchFormData();
+    }, [id]);
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            if(isEditMode) {
+                await axios.put(`/api/offices/${id}`, formData);
+            } else {
+                await axios.post(`/api/offices`, formData);
+            }
+        navigate("/couriers");
+        } catch(err) {
+            console.log("failed to save courier", err);
+        }
+    };
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
+    };
+
+    const handleReset = () => {
+        setFormData(initialData);
+    }
+
     return (
         <div className="flex-1">
             <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
 
-                {/* Header */}
                 <div className="flex justify-between text-[22px] text-gray-800 px-2">
                     <div className="flex items-center gap-4">
                         <FaFilePen />
@@ -18,12 +91,10 @@ const AddEditCourierCompany = () => {
 
                 <hr className="border-gray-300 my-6 -mx-6" />
 
-                {/* Form */}
-                <form className="text-[15px] px-4 py-2">
+                <form className="text-[15px] px-4 py-2" onSubmit={handleSubmit}>
 
                     <div className="grid grid-cols-2 gap-x-10 gap-y-7">
 
-                        {/* Company Name */}
                         <div className="flex flex-col gap-1 col-span-2">
                             <label
                                 htmlFor="CourierCompanyName"
@@ -33,15 +104,16 @@ const AddEditCourierCompany = () => {
                             </label>
                             <input
                                 id="CourierCompanyName"
-                                name="CourierCompanyName"
+                                name="companyName"
                                 type="text"
                                 placeholder="Enter Courier Company Name"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
+                                value={formData.companyName}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Contact Person */}
                         <div className="flex flex-col gap-1">
                             <label
                                 htmlFor="ContactPersonName"
@@ -51,14 +123,15 @@ const AddEditCourierCompany = () => {
                             </label>
                             <input
                                 id="ContactPersonName"
-                                name="ContactPersonName"
+                                name="contactPersonName"
                                 type="text"
                                 placeholder="Enter Contact Person Name"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.contactPersonName}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Phone */}
                         <div className="flex flex-col gap-1">
                             <label
                                 htmlFor="PhoneNo"
@@ -68,14 +141,15 @@ const AddEditCourierCompany = () => {
                             </label>
                             <input
                                 id="PhoneNo"
-                                name="PhoneNo"
+                                name="phoneNo"
                                 type="text"
                                 placeholder="Enter Phone Number"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.phoneNo}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Email */}
                         <div className="flex flex-col gap-1">
                             <label
                                 htmlFor="Email"
@@ -85,14 +159,15 @@ const AddEditCourierCompany = () => {
                             </label>
                             <input
                                 id="Email"
-                                name="Email"
+                                name="email"
                                 type="email"
                                 placeholder="Enter Email Address"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.email}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Website */}
                         <div className="flex flex-col gap-1">
                             <label
                                 htmlFor="Website"
@@ -102,14 +177,15 @@ const AddEditCourierCompany = () => {
                             </label>
                             <input
                                 id="Website"
-                                name="Website"
+                                name="website"
                                 type="url"
                                 placeholder="Enter Website URL"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            />
+                                value={formData.website}
+                                onChange={handleChange}
+                                />
                         </div>
 
-                        {/* Default Rate */}
                         <div className="flex flex-col gap-1">
                             <label
                                 htmlFor="DefaultRate"
@@ -119,25 +195,27 @@ const AddEditCourierCompany = () => {
                             </label>
                             <input
                                 id="DefaultRate"
-                                name="DefaultRate"
+                                name="defaultRate"
                                 type="number"
                                 step="0.01"
                                 placeholder="Enter Default Rate"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.defaultRate}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Status */}
                         <div className="flex items-center gap-6 pl-8">
                             <input
                                 type="checkbox"
-                                defaultChecked
+                                name="isActive"
+                                checked={formData.isActive}
                                 className="cursor-pointer accent-[#1e6784]"
+                                onChange={handleChange}
                             />
                             <label className="font-medium">Is Active</label>
                         </div>
 
-                        {/* Address */}
                         <div className="col-span-2 flex flex-col gap-1">
                             <label
                                 htmlFor="Address"
@@ -147,14 +225,15 @@ const AddEditCourierCompany = () => {
                             </label>
                             <textarea
                                 id="Address"
-                                name="Address"
+                                name="address"
                                 rows="3"
                                 placeholder="Enter Address"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.address}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        {/* Remarks */}
                         <div className="col-span-2 flex flex-col gap-1">
                             <label
                                 htmlFor="Remarks"
@@ -164,15 +243,16 @@ const AddEditCourierCompany = () => {
                             </label>
                             <textarea
                                 id="Remarks"
-                                name="Remarks"
+                                name="remarks"
                                 rows="2"
                                 placeholder="Enter Remarks"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.remarks}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
 
-                    {/* Buttons */}
                     <div className="flex justify-center gap-6 mt-10">
                         <button
                             type="submit"
@@ -182,7 +262,8 @@ const AddEditCourierCompany = () => {
 
                         <button
                             type="reset"
-                            className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer">
+                            className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer"
+                            onClick={handleReset}>
                             Clear
                         </button>
                     </div>
