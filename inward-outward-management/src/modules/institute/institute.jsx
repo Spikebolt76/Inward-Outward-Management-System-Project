@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteModal from "../../components/confirmDeleteModal";
+import ViewInstituteModal from "./viewInstituteModal";
 
 const Institutes = () => {
 	const navigate = useNavigate();
@@ -71,6 +72,7 @@ const Institutes = () => {
 					rowKey="instituteId"
 					onEdit={handleEdit}
 					onDelete={handleDelete}
+					onView={handleView}
 				/>
 			</div>
 
@@ -78,6 +80,11 @@ const Institutes = () => {
 				onCancel={() => setIsDeleteOpen(false)}
 				onConfirm={() => handleConfirmDelete(rowToDelete)}
 			/>}
+
+			{isViewOpen && <ViewInstituteModal 
+            onCancel={() => setIsViewOpen(false)}
+            onEdit={handleEdit}
+            data={rowToView}/>}
 		</div>
 	);
 }

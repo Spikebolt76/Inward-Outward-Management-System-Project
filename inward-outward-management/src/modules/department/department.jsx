@@ -3,15 +3,18 @@ import DataTable from "../../components/dataTable";
 import { departmentColumns } from "./departmentColumns";
 import AddButton from "../../components/addButton";
 import axios from "axios";
-import ConfirmDeleteModal from "../../components/confirmDeleteModal";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ConfirmDeleteModal from "../../components/confirmDeleteModal";
+import ViewDepartmentModal from "./viewDepartmentModal";
 
 const Departments = () => {
 	const navigate = useNavigate();
 	const [departments, setDepartments] = useState([]);
 	const [rowToDelete, setRowToDelete] = useState(null);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+	const [rowToView, setRowToView] = useState(null);
+    const [isViewOpen, setIsViewOpen] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -45,6 +48,11 @@ const Departments = () => {
 		}
 	}
 
+	const handleView = (row) => {
+        setRowToView(row);
+        setIsViewOpen(true);
+    }
+
 	return (
 		<div className="flex-1">
 			<div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
@@ -64,6 +72,7 @@ const Departments = () => {
 					rowKey="departmentId"
 					onEdit={handleEdit}
 					onDelete={handleDelete}
+					onView={handleView}
 				/>
 			</div>
 
@@ -71,6 +80,11 @@ const Departments = () => {
 				onCancel={() => setIsDeleteOpen(false)}
 				onConfirm={() => handleConfirmDelete(rowToDelete)}
 			/>}
+
+			{isViewOpen && <ViewDepartmentModal 
+            onCancel={() => setIsViewOpen(false)}
+            onEdit={handleEdit}
+            data={rowToView}/>}
 		</div>
 	);
 }
