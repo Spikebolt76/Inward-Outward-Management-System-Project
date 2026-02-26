@@ -30,13 +30,15 @@ const TransferMode = sequelize.define('TransferMode', {
     },
     createdBy: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: 1,
         references: { model: 'users', key: 'user_id' },
         field: 'created_by'
     },
     updatedBy: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: 1,
         references: { model: 'users', key: 'user_id' },
         field: 'updated_by'
     }

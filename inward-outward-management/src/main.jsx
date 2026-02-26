@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         element: <Modes />
       },
       { path: "modes/add", element: <AddMode />},
-      { path: "offices/:id", element: <AddOffice />},
+      { path: "modes/:id", element: <AddMode />},
       
       {
         path: "contact",

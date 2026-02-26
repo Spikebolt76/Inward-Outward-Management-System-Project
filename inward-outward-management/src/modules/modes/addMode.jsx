@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 
 const AddEditMode = () => {
     
-    const [formData, setFormData] = useState({
+    const initialData = {
         modeName: "",
         isActive: true,
         remarks: "",
         displayOrder: "",
-    });
+    };
+    const [formData, setFormData] = useState(initialData);
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -41,7 +42,8 @@ const AddEditMode = () => {
         const { name, value, type, checked } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: type === "checkbox" ? checked 
+            : name  === "displayOrder" ? Number(value) :  value,
         }));
     };
 
@@ -61,12 +63,7 @@ const AddEditMode = () => {
     }
 
     const handleReset = () => {
-        setFormData({
-            modeName: "",
-            isActive: true,
-            remarks: "",
-            displayOrder: "",
-        });
+        setFormData(initialData);
     };
 
     return (
@@ -76,7 +73,7 @@ const AddEditMode = () => {
                 <div className="flex justify-between text-[22px] text-gray-800 px-2">
                     <div className="flex items-center gap-4">
                         <FaFilePen />
-                        <span>Add / Edit Mode</span>
+                        <span>Add / Edit Transfer Mode</span>
                     </div>
                     
                     <CloseButton />

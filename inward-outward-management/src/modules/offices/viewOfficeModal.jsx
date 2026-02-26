@@ -2,20 +2,7 @@ import { FaBuilding, FaXmark } from "react-icons/fa6"
 import { useEffect } from "react";
 import ActiveBadge from "../../components/activeBadge";
 import InactiveBadge from "../../components/inactiveBadge";
-
-const Field = ({ label, value, className = "" }) => (
-    <div className={`p-5 gap-2 flex flex-col ${className}`}>
-        <div className="text-gray-500 text-[12px]">{label}</div>
-        <div className="text-[14px]">{value ?? <span className="text-gray-300">—</span>}</div>
-    </div>
-);
-
-const MonoField = ({ label, value, className = "" }) => (
-    <div className={`p-5 gap-2 flex flex-col ${className}`}>
-        <div className="text-gray-500 text-[12px]">{label}</div>
-        <div className="font-mono text-[14px]">{value ?? <span className="text-gray-300">—</span>}</div>
-    </div>
-);
+import { Field, MonoField } from "../../components/fields";
 
 const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
     const {
@@ -70,6 +57,7 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
                     {/* DETAILS */}
                     <div>
                         <div className="text-gray-600 text-[13px] font-medium mb-2">DETAILS</div>
+                        
                         <div className="grid grid-cols-2">
                             <Field label="Office ID"   value={officeId}   className="border-r border-b border-gray-300" />
                             <Field label="Office Name" value={officeName} className="border-l border-b border-gray-300" />
@@ -135,14 +123,12 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
                     <div className="flex gap-3">
                         <button
                             className="px-8 py-2 rounded-md bg-[#1e6784] text-[14px] text-white hover:bg-[#175067] transition cursor-pointer"
-                            onClick={onCancel}
-                        >
+                            onClick={onCancel}>
                             Close
                         </button>
                         <button
                             className="px-8 py-2 rounded-md bg-[#b3d0db] text-[14px] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer"
-                            onClick={onEdit}
-                        >
+                            onClick={onEdit}>
                             Edit
                         </button>
                     </div>

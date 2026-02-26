@@ -261,7 +261,7 @@ const AddEditCourierCompany = () => {
                         </button>
 
                         <button
-                            type="reset"
+                            type="button"
                             className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer"
                             onClick={handleReset}>
                             Clear

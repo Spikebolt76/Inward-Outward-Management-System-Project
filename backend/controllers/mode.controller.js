@@ -24,7 +24,7 @@ const getAllModes = async (req, res) => {
         const modes = await modeService.getAllModes();
 
         res.status(200).json({
-            succes: true,
+            success: true,
             data: modes
         });
 
@@ -53,7 +53,7 @@ const getMode = async (req, res) => {
         });
 
     } catch(err) {
-        req.status(500).json({
+        res.status(500).json({
             success: false,
             message: err.message
         });
@@ -62,7 +62,7 @@ const getMode = async (req, res) => {
 
 const deleteMode = async (req, res) => {
     try {
-        const deleted = await modeService.getMode(req,params.id);
+        const deleted = await modeService.deleteMode(req.params.id);
         
         if(!deleted) {
             return res.status(400).json({
@@ -77,7 +77,7 @@ const deleteMode = async (req, res) => {
         });
 
     } catch(err) {
-        req.status(500).json({
+        res.status(500).json({
             success: false,
             message: err.message
         });
@@ -86,7 +86,7 @@ const deleteMode = async (req, res) => {
 
 const updateMode = async (req, res) => {
     try {
-        const updated = await modeService.getMode(req,params.id, req.boyd);
+        const updated = await modeService.updateMode(req.params.id, req.body);
 
         if(!updated) {
             return res.status(400).json({
@@ -101,7 +101,7 @@ const updateMode = async (req, res) => {
         });
 
     } catch(err) {
-        req.status(500).json({
+        res.status(500).json({
             success: false,
             message: err.message
         });

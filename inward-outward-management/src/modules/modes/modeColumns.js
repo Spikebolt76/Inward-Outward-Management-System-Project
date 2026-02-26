@@ -8,7 +8,7 @@ export const modeColumns = [
         header: 'Status'
     },
     {
-        key: 'Display Order',
-        header: 'displayOrder'  
+        key: 'displayOrder',
+        header: 'Display Order'  
     }
 ]

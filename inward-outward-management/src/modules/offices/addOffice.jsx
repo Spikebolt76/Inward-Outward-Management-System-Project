@@ -6,7 +6,7 @@ import CloseButton from "../../components/closeButton";
 
 const AddEditOffice = () => {
 
-    const [formData, setFormData] = useState({
+    const initialData = {
         officeName: "",
         instituteId: "",
         departmentId: "",
@@ -18,7 +18,8 @@ const AddEditOffice = () => {
         openingOutwardNo: 1,
         isActive: true,
         remarks: "",
-    });
+    };
+    const [formData, setFormData] = useState(initialData);
 
     const [helperData, setHelperData] = useState({});
     const navigate = useNavigate();
@@ -45,8 +46,20 @@ const AddEditOffice = () => {
 
         const fetchFormData = async () => {
             try {
-                const { data } = await axios.get(`/api/offices/${id}`);
-                setFormData(data.data);
+                const { data : { data } } = await axios.get(`/api/offices/${id}`);
+                setFormData({
+                    officeName: data.officeName || "",
+                    instituteId: data.instituteId || "",
+                    departmentId: data.departmentId || "",
+                    email: data.email || "",
+                    phoneNo: data.phoneNo || "",
+                    address: data.address || "",
+                    openingDate: data.openingDate || "",
+                    openingInwardNo: data.openingInwardNo ?? 1,
+                    openingOutwardNo: data.openingOutwardNo ?? 1,
+                    isActive: data.isActive ?? true,
+                    remarks: data.remarks || "",
+                });
             } catch (err) {
                 console.log("Failed to load office data", err);
             }
@@ -79,6 +92,10 @@ const AddEditOffice = () => {
         } catch (err) {
             console.error("Failed to save office:", err);
         }
+    };
+
+    const handleReset = () => {
+        setFormData(initialData);
     };
 
     return (
@@ -152,7 +169,7 @@ const AddEditOffice = () => {
                                 name="email"
                                 placeholder="Enter Email"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.email || ""}
+                                value={formData.email}
                                 onChange={handleChange}
                             />
                         </div>
@@ -164,7 +181,7 @@ const AddEditOffice = () => {
                                 name="phoneNo"
                                 placeholder="Enter Phone Number"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.phoneNo || ""}
+                                value={formData.phoneNo}
                                 onChange={handleChange}
                             />
                         </div>
@@ -176,7 +193,7 @@ const AddEditOffice = () => {
                                 name="address"
                                 placeholder="Enter Address"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.address || ""}
+                                value={formData.address}
                                 onChange={handleChange}
                             />
                         </div>
@@ -237,7 +254,7 @@ const AddEditOffice = () => {
                                 name="remarks"
                                 placeholder="Enter Remarks"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.remarks || ""}
+                                value={formData.remarks}
                                 onChange={handleChange}
                             />
                         </div>
@@ -251,7 +268,8 @@ const AddEditOffice = () => {
                             Save
                         </button>
                         <button
-                            type="reset"
+                            type="button"
+                            onClick={handleReset}
                             className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer">
                             Clear
                         </button>
