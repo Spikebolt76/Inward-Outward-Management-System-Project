@@ -6,6 +6,7 @@ import AddButton from "../../components/addButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import ConfirmDeleteModal from "../../components/confirmDeleteModal";
+import ViewUserModal from "./viewUserModal";
 
 const Users = () => {
     const navigate = useNavigate();

@@ -1,23 +1,23 @@
-import { FaXmark } from "react-icons/fa6"
-import { TiFlowSwitch } from "react-icons/ti";
+import { FaBoxesPacking, FaXmark } from "react-icons/fa6";
 import ActiveBadge from "../../components/activeBadge";
 import InactiveBadge from "../../components/inactiveBadge";
 import { useEffect } from "react";
 import { Field, MonoField } from "../../components/fields";
 
-const ViewModeModal = ({onEdit, onCancel, data}) => {
+const ViewCourierModal = ({onCancel, onEdit, data}) => {
 
-    const { transferModeId, modeName, isActive, 
-        displayOrder, remarks, createdBy, updatedBy, created_at, updated_at } = data;
+    const { courierCompanyId, companyName, contactPersonName, 
+            phoneNo, email, website, address, defaultRate, isActive, 
+            remarks, createdBy, updatedBy, created_at, updated_at} = data;
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "Escape") onCancel();
+            if (e.key === 'Escape') onCancel();
         }
         document.addEventListener("keydown", handleKeyDown);
         return () => document.removeEventListener("keydown", handleKeyDown);
     });
-
+    
     return(
         <div className="bg-black/40 fixed flex inset-0 justify-center items-center animate-fadeIn" onClick={onCancel}>
 
@@ -26,11 +26,11 @@ const ViewModeModal = ({onEdit, onCancel, data}) => {
                 <div className="flex justify-between px-10 pt-8 pb-5 shrink-0 bg-white">
                     <div className="flex items-center gap-5">
                         <div className="bg-[#b3d0db] p-4 rounded-md">
-                            <TiFlowSwitch className="text-[#1a5c77] text-[20px]"/>
+                            <FaBoxesPacking className="text-[#1a5c77] text-[20px]"/>
                         </div>
                         <div className="flex-1">
-                            <h2 className="text-[18px] font-medium leading-10">{modeName}</h2>
-                            <span className="text-gray-500 font-mono text-[14px] inline-block">{transferModeId}</span>
+                            <h2 className="text-[18px] font-medium leading-10">{companyName}</h2>
+                            <span className="text-gray-500 font-mono text-[14px] inline-block">{courierCompanyId}</span>
                         </div>
                     </div>
 
@@ -50,11 +50,30 @@ const ViewModeModal = ({onEdit, onCancel, data}) => {
                     <div>
                         <div className="text-gray-600 text-[13px] font-medium mb-2">DETAILS</div>
 
-                        <div className="grid grid-cols-3">
-                            <Field label="Mode ID" value={transferModeId} className="border-r border-b border-gray-300"/>
-                            <Field label="Mode Name" value={modeName} className="border-x border-b border-gray-300"/>
-                            <Field label="Display Order" value={displayOrder} className="border-l border-b border-gray-300"/>
-                            <Field label="Remarks" value={remarks} className=" border-t border-gray-300 col-span-3"/>
+                        <div className="grid grid-cols-2">
+                            <Field label="Courier Company ID" value={courierCompanyId} className="border-r border-b border-gray-300"/>
+                            <Field label="Courier Company Name" value={companyName} className="border-l border-b border-gray-300"/>
+                            <Field label="Default Rate" value={defaultRate} className="border-y border-gray-300 col-span-2 text-green-600"/>
+                            <Field label="Address" value={address} className="border-t border-gray-300 col-span-2"/>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="text-gray-600 text-[13px] font-medium mb-2">CONTACT INFORMATION</div>
+
+                        <div className="grid grid-cols-2">
+                            <Field label="Contact Person Name" value={contactPersonName} className="border-r border-b border-gray-300"/>
+                            <Field label="Phone No" value={phoneNo} className="border-l border-b border-gray-300"/>
+                            <Field label="Email" value={email} className="border-r border-t border-gray-300"/>
+                            <Field label="Website" value={website} className="border-l border-t border-gray-300"/>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="text-gray-600 text-[13px] font-medium mb-2">MISC.</div>
+
+                        <div className="grid grid-cols-2">
+                            <Field label="Remarks" value={remarks} className="border-gray-300 col-span-2"/>
                         </div>
                     </div>
                     
@@ -75,7 +94,7 @@ const ViewModeModal = ({onEdit, onCancel, data}) => {
 
                 <div className="flex items-center justify-between px-10 py-5 bg-white"> 
                     <div className="text-[13px] text-gray-400">
-                        ID <span className="text-gray-700 font-mono ml-2">{transferModeId}</span> <br />
+                        ID <span className="text-gray-700 font-mono ml-2">{courierCompanyId}</span> <br />
                         Last updated <span className="text-gray-700 font-mono ml-2">{updated_at}</span>
                     </div>
                     <div className="flex gap-3">
@@ -95,4 +114,4 @@ const ViewModeModal = ({onEdit, onCancel, data}) => {
     );
 }
 
-export default ViewModeModal;
+export default ViewCourierModal;

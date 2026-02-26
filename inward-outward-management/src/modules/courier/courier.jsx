@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteModal from "../../components/confirmDeleteModal";
+import ViewCourierModal from "./viewCourierModal";
 
 const Courier = () => {
 
@@ -13,11 +14,13 @@ const Courier = () => {
     const [couriers, setCouriers] = useState([]);
     const [rowToDelete, setRowToDelete] = useState(null);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [rowToView, setRowToView] = useState(null);
+    const [isViewOpen, setIsViewOpen] = useState(false);
 
     useEffect(() => {
         const fetchCouriers = async () => {
             try {
-                const { data } = await axios.get("/api/courier"); 
+                const { data } = await axios.get("/api/couriers"); 
 
                 setCouriers(data.data);
             } catch(err) {
@@ -28,7 +31,7 @@ const Courier = () => {
     }, []);
 
     const handleEdit = (row) => {
-        navigate(`/couriers/${row.courierCompanyId}`);
+        navigate(`/courier/${row.courierCompanyId}`);
     }
 
     const handleDelete = (row) => {
@@ -46,6 +49,12 @@ const Courier = () => {
             console.log("failed to delete mode data", err);
         }
     }
+
+    const handleView = (row) => {
+        setRowToView(row);
+        setIsViewOpen(true);
+    }
+
     return(
         <div className="flex-1">
            <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
@@ -66,12 +75,18 @@ const Courier = () => {
                 data={couriers}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
+                onView={handleView}
                 />
             </div>
 
             {isDeleteOpen && <ConfirmDeleteModal
             onCancel={() => setIsDeleteOpen(false)}
             onConfirm={() => handleConfirmDelete(rowToDelete)} />}
+
+            {isViewOpen && <ViewCourierModal 
+            onCancel={() => setIsViewOpen(false)}
+            onEdit={handleEdit}
+            data={rowToView}/>}
 
         </div>
     );

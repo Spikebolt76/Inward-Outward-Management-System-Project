@@ -3,15 +3,17 @@ import DataTable from "../../components/dataTable";
 import { instituteColumns } from "./instituteColumns";
 import AddButton from "../../components/addButton";
 import axios from "axios";
-import ConfirmDeleteModal from "../../components/confirmDeleteModal";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ConfirmDeleteModal from "../../components/confirmDeleteModal";
 
 const Institutes = () => {
 	const navigate = useNavigate();
 	const [institutes, setInstitutes] = useState([]);
 	const [rowToDelete, setRowToDelete] = useState(null);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+	const [rowToView, setRowToView] = useState(null);
+    const [isViewOpen, setIsViewOpen] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -44,6 +46,11 @@ const Institutes = () => {
 			console.log('failed to delete institute', err);
 		}
 	}
+
+	const handleView = (row) => {
+        setRowToView(row);
+        setIsViewOpen(true);
+    }
 
 	return (
 		<div className="flex-1">

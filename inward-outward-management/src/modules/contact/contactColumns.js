@@ -16,8 +16,8 @@ export const contactColumns = [
         header: 'Email'  
     },
     {
-        key: 'place',
-        header: 'Place'  
+        key: 'city',
+        header: 'City'  
     },
     {
         key: 'isActive',

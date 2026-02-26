@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteModal from "../../components/confirmDeleteModal";
+import ViewContactModal from "./viewContactModal";
 
 const Contact = () => {
 
@@ -13,8 +14,22 @@ const Contact = () => {
     const [contacts, setContacts] = useState([]);
     const [rowToDelete, setRowToDelete] = useState(null);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [rowToView, setRowToView] = useState(null);
+    const [isViewOpen, setIsViewOpen] = useState(false);
 
-    
+    useEffect(() => {
+        const fetchContacts = async () => {
+            try {
+                const { data } = await axios.get("/api/contacts"); 
+
+                setContacts(data.data);
+            } catch(err) {
+                console.log("failed to load contact data", err);
+            }
+        }
+
+        fetchContacts();
+    }, []);
 
     const handleEdit = (row) => {
         navigate(`/contacts/${row.contactId}`);
@@ -34,6 +49,11 @@ const Contact = () => {
         } catch(err) {
             console.log("failed to delete mode data", err);
         }
+    }
+
+    const handleView = (row) => {
+        setRowToView(row);
+        setIsViewOpen(true);
     }
 
     return(
@@ -56,12 +76,18 @@ const Contact = () => {
                 data={contacts}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
+                onView={handleView}
                 />
             </div>
 
             {isDeleteOpen && <ConfirmDeleteModal
             onCancel={() => setIsDeleteOpen(false)}
             onConfirm={() => handleConfirmDelete(rowToDelete)} />}
+
+            {isViewOpen && <ViewContactModal 
+            onEdit={handleEdit}
+            onCancel={() => setIsViewOpen(false)}
+            data={rowToView}/>}
         </div>
     );
 }

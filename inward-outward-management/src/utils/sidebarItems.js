@@ -7,7 +7,7 @@ export const sidebarItems = [
     {label: "Dashboard", icon: TbLayoutDashboardFilled, to: '/'},
     {label: "Office Master", icon: FaBuilding, to: '/offices'},
     {label: "Modes Master", icon: TiFlowSwitch, to: '/modes'},
-    {label: "Contact", icon: FaRightLeft, to: '/contact'},
+    {label: "Contact", icon: FaRightLeft, to: '/contacts'},
     {label: "Courier Company", icon: FaBoxesPacking, to: '/courier'},
     {label: "Inward", icon: FaIndent, to: '/inward'},
     {label: "Outward", icon: FaOutdent, to: '/outward'},

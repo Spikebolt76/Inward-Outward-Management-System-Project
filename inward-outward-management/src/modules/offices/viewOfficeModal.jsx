@@ -28,7 +28,7 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
 
             <div className="bg-[#f9fafb] rounded-xl max-h-260 w-230 overflow-hidden animate-slideUp flex flex-col" onClick={(e) => e.stopPropagation()}>
 
-                <div className="flex justify-between px-10 pt-8 pb-5 shrink-0">
+                <div className="flex justify-between px-10 pt-8 pb-5 shrink-0 bg-white">
                     <div className="flex items-center gap-5">
                         <div className="bg-[#b3d0db] p-4 rounded-md">
                             <FaBuilding className="text-[#1a5c77] text-[20px]" />
@@ -92,7 +92,7 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
 
                     {/* CONTACT */}
                     <div>
-                        <div className="text-gray-600 text-[13px] font-medium mb-2">CONTACT</div>
+                        <div className="text-gray-600 text-[13px] font-medium mb-2">CONTACT INFORMATION</div>
                         <div className="grid grid-cols-2">
                             <Field label="Email"    value={email}   className="border-r border-b border-gray-300" />
                             <Field label="Phone No" value={phoneNo} className="border-l border-b border-gray-300" />
@@ -115,7 +115,7 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
 
                 <hr className="border-gray-300 border" />
 
-                <div className="flex items-center justify-between px-10 py-5">
+                <div className="flex items-center justify-between px-10 py-5 bg-white">
                     <div className="text-[13px] text-gray-400">
                         ID <span className="text-gray-700 font-mono ml-2">{officeId}</span> <br />
                         Last updated <span className="text-gray-700 font-mono ml-2">{updated_at}</span>
@@ -128,7 +128,7 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
                         </button>
                         <button
                             className="px-8 py-2 rounded-md bg-[#b3d0db] text-[14px] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer"
-                            onClick={onEdit}>
+                            onClick={() => onEdit(data)}>
                             Edit
                         </button>
                     </div>

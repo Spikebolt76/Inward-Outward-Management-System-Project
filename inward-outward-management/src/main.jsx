@@ -59,11 +59,11 @@ const router = createBrowserRouter([
       { path: "modes/:id", element: <AddMode />},
       
       {
-        path: "contact",
+        path: "contacts",
         element: <Contact />
       },
-      { path: "contact/add", element: <AddContact /> },
-      { path: "contact/:id", element: <AddContact />},
+      { path: "contacts/add", element: <AddContact /> },
+      { path: "contacts/:id", element: <AddContact />},
 
   
       {

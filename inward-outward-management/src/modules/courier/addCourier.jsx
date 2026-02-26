@@ -15,10 +15,12 @@ const AddEditCourierCompany = () => {
         address: "",
         defaultRate: 0,
         isActive: true,
-        remarks: ""
+        remarks: "",
+        createdBy: 1,
+        updatedBy: 1
     }
     const navigate = useNavigate();
-    const id = useParams();
+    const { id } = useParams();
     const isEditMode = Boolean(id); 
 
     const [formData, setFormData] = useState(initialData);
@@ -29,7 +31,7 @@ const AddEditCourierCompany = () => {
         const fetchFormData = async () => {
             try {
                 const { data: { data } } = await axios.get(`/api/couriers/${id}`);
-
+                
                 setFormData({
                     companyName: data.companyName || "",
                     contactPersonName: data.contactPersonName || "",
@@ -41,6 +43,7 @@ const AddEditCourierCompany = () => {
                     isActive: data.isActive ?? true,
                     remarks: data.remarks || ""
                 });
+                
             } catch(err) {
                 console.log("failed to load form data", err);
             }
@@ -49,16 +52,26 @@ const AddEditCourierCompany = () => {
         fetchFormData();
     }, [id]);
     
+    const normalizeUrl = (e) => {
+        let value = e.target.value;
+        if (value && !value.startsWith("http")) {
+            setFormData(prev => ({
+                ...prev,
+                website: "https://" + value
+            }));
+        }
+    };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             if(isEditMode) {
-                await axios.put(`/api/offices/${id}`, formData);
+                await axios.put(`/api/couriers/${id}`, formData);
             } else {
-                await axios.post(`/api/offices`, formData);
+                await axios.post(`/api/couriers`, formData);
             }
-        navigate("/couriers");
+        navigate("/courier");
         } catch(err) {
             console.log("failed to save courier", err);
         }
@@ -182,6 +195,7 @@ const AddEditCourierCompany = () => {
                                 placeholder="Enter Website URL"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 value={formData.website}
+                                onBlur={normalizeUrl}
                                 onChange={handleChange}
                                 />
                         </div>

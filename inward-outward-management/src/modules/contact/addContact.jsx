@@ -24,6 +24,8 @@ const AddEditContact = () => {
         displayOrder: "",
         remarks: "",
         isActive: true,
+        createdBy: 1,
+        updatedBy: 1
     };
     const [formData, setFormData] = useState(initialData);
 
@@ -45,7 +47,7 @@ const AddEditContact = () => {
                     pincode: data.pincode || "",
                     displayOrder: data.displayOrder ?? "",
                     remarks: data.remarks || "",
-                    isActive: data.isActive ?? true,
+                    isActive: data.isActive ?? true
                 });
             } catch (err) {
                 console.log("Failed to load form data", err);
@@ -72,7 +74,7 @@ const AddEditContact = () => {
             } else {
                 await axios.post(`/api/contacts`, formData);
             }
-            navigate("/contacts");
+            navigate("/contact");
         } catch (err) {
             console.log("Failed to save contact", err);
         }
