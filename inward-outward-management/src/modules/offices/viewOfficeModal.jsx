@@ -22,6 +22,7 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
         officeId, officeName,
         institute: { instituteId, instituteName } = {},
         department: { departmentId, departmentName } = {},
+        email, phoneNo, address,
         openingDate, openingInwardNo, openingOutwardNo,
         isActive, remarks,
         createdBy, updatedBy, created_at, updated_at
@@ -66,6 +67,7 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
 
                 <div className="p-10 overflow-y-auto flex flex-col gap-8 flex-1">
 
+                    {/* DETAILS */}
                     <div>
                         <div className="text-gray-600 text-[13px] font-medium mb-2">DETAILS</div>
                         <div className="grid grid-cols-2">
@@ -100,15 +102,27 @@ const ViewOfficeModal = ({ onEdit, onCancel, data }) => {
                         </div>
                     </div>
 
+                    {/* CONTACT */}
+                    <div>
+                        <div className="text-gray-600 text-[13px] font-medium mb-2">CONTACT</div>
+                        <div className="grid grid-cols-2">
+                            <Field label="Email"    value={email}   className="border-r border-b border-gray-300" />
+                            <Field label="Phone No" value={phoneNo} className="border-l border-b border-gray-300" />
+                            <Field label="Address"  value={address} className="border-t col-span-2 border-gray-300" />
+                        </div>
+                    </div>
+
+                    {/* AUDIT TRAIL */}
                     <div>
                         <div className="text-gray-600 text-[13px] font-medium mb-2">AUDIT TRAIL</div>
                         <div className="grid grid-cols-2">
-                            <MonoField label="Created By"   value={createdBy}  className="border-r border-b border-gray-300" />
-                            <MonoField label="Created"      value={created_at} className="border-l border-b border-gray-300" />
-                            <MonoField label="Modified By"  value={updatedBy}  className="border-r border-t border-gray-300" />
-                            <MonoField label="Modified"     value={updated_at} className="border-l border-t border-gray-300" />
+                            <MonoField label="Created By"  value={createdBy}  className="border-r border-b border-gray-300" />
+                            <MonoField label="Created"     value={created_at} className="border-l border-b border-gray-300" />
+                            <MonoField label="Modified By" value={updatedBy}  className="border-r border-t border-gray-300" />
+                            <MonoField label="Modified"    value={updated_at} className="border-l border-t border-gray-300" />
                         </div>
                     </div>
+
                 </div>
 
                 <hr className="border-gray-300 border" />

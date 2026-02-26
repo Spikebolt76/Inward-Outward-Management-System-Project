@@ -10,15 +10,16 @@ const AddEditOffice = () => {
         officeName: "",
         instituteId: "",
         departmentId: "",
+        email: "",
+        phoneNo: "",
+        address: "",
         openingDate: "",
         openingInwardNo: 1,
         openingOutwardNo: 1,
-        isActive: 1,
+        isActive: true,
         remarks: "",
-        createdBy: 1, // Hardcoded temporary ID
-        updatedBy: 1
     });
-    
+
     const [helperData, setHelperData] = useState({});
     const navigate = useNavigate();
     const { id } = useParams();
@@ -26,32 +27,44 @@ const AddEditOffice = () => {
 
     useEffect(() => {
         const fetchHelperData = async () => {
-            try{
+            try {
                 const [{ data: { data: department } }, { data: { data: institute } }] = await Promise.all([
                     axios.get("/api/departments"),
                     axios.get("/api/institutes")
                 ]);
                 setHelperData({ department, institute });
-            } catch(err) {
-                console.log("failed to load office data", err);
+            } catch (err) {
+                console.log("Failed to load helper data", err);
             }
-        }
+        };
         fetchHelperData();
     }, []);
 
     useEffect(() => {
-        if (!id) return; //is_Edit_mode
+        if (!id) return;
 
         const fetchFormData = async () => {
             try {
                 const { data } = await axios.get(`/api/offices/${id}`);
                 setFormData(data.data);
-            } catch(err) {
-                console.log("failed to load office data", err);
+            } catch (err) {
+                console.log("Failed to load office data", err);
             }
-        }
+        };
         fetchFormData();
     }, [id]);
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: type === "checkbox"
+                ? checked
+                : (name === "instituteId" || name === "departmentId" || name === "openingInwardNo" || name === "openingOutwardNo")
+                    ? Number(value) || ""
+                    : value,
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -63,10 +76,10 @@ const AddEditOffice = () => {
                 await axios.post(`/api/offices`, formData);
             }
             navigate("/offices");
-        } catch(err) {
+        } catch (err) {
             console.error("Failed to save office:", err);
         }
-    }
+    };
 
     return (
         <div className="flex-1">
@@ -77,7 +90,6 @@ const AddEditOffice = () => {
                         <FaFilePen />
                         <span>Add / Edit Office</span>
                     </div>
-                    
                     <CloseButton />
                 </div>
 
@@ -93,11 +105,12 @@ const AddEditOffice = () => {
                             </label>
                             <input
                                 type="text"
+                                name="officeName"
                                 placeholder="Enter Office Name"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
                                 value={formData.officeName}
-                                onChange={(e) => setFormData({...formData, officeName: e.target.value})}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -106,29 +119,66 @@ const AddEditOffice = () => {
                                 Institute <span className="text-red-500">*</span>
                             </label>
                             <select
+                                name="instituteId"
                                 className="border rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                required
                                 value={formData.instituteId}
-                                onChange={(e) => setFormData({...formData, instituteId: Number(e.target.value)})} >
+                                onChange={handleChange}>
                                 <option value="">Select Institute</option>
-                                {(helperData.institute || []).map((institute) => 
+                                {(helperData.institute || []).map((institute) =>
                                     <option key={institute.instituteId} value={institute.instituteId}>{institute.instituteName}</option>
                                 )}
                             </select>
                         </div>
 
                         <div className="flex flex-col gap-1">
-                            <label className="font-medium">
-                                Department <span className="text-red-500">*</span>
-                            </label>
+                            <label className="font-medium">Department</label>
                             <select
+                                name="departmentId"
                                 className="border rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 value={formData.departmentId}
-                                onChange={(e) => setFormData({...formData, departmentId: Number(e.target.value)})} >
+                                onChange={handleChange}>
                                 <option value="">Select Department</option>
-                                {(helperData.department || []).map((department) => 
+                                {(helperData.department || []).map((department) =>
                                     <option key={department.departmentId} value={department.departmentId}>{department.departmentName}</option>
                                 )}
                             </select>
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <label className="font-medium">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter Email"
+                                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.email || ""}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <label className="font-medium">Phone No</label>
+                            <input
+                                type="text"
+                                name="phoneNo"
+                                placeholder="Enter Phone Number"
+                                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.phoneNo || ""}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="col-span-2 flex flex-col gap-1">
+                            <label className="font-medium">Address</label>
+                            <textarea
+                                rows="2"
+                                name="address"
+                                placeholder="Enter Address"
+                                className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                value={formData.address || ""}
+                                onChange={handleChange}
+                            />
                         </div>
 
                         <div className="flex flex-col gap-1">
@@ -137,10 +187,11 @@ const AddEditOffice = () => {
                             </label>
                             <input
                                 type="date"
+                                name="openingDate"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required
                                 value={formData.openingDate}
-                                onChange={(e) => setFormData({...formData, openingDate: e.target.value})}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -148,10 +199,11 @@ const AddEditOffice = () => {
                             <label className="font-medium">Opening Inward No</label>
                             <input
                                 type="number"
-                                min="1"
+                                name="openingInwardNo"
+                                min="0"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 value={formData.openingInwardNo}
-                                onChange={(e) => setFormData({...formData, openingInwardNo: Number(e.target.value)})}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -159,18 +211,20 @@ const AddEditOffice = () => {
                             <label className="font-medium">Opening Outward No</label>
                             <input
                                 type="number"
-                                min="1"
+                                name="openingOutwardNo"
+                                min="0"
                                 className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 value={formData.openingOutwardNo}
-                                onChange={(e) => setFormData({...formData, openingOutwardNo: Number(e.target.value)})}
+                                onChange={handleChange}
                             />
                         </div>
 
                         <div className="flex items-center gap-6 pl-8">
                             <input
                                 type="checkbox"
+                                name="isActive"
                                 checked={formData.isActive}
-                                onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
+                                onChange={handleChange}
                                 className="cursor-pointer accent-[#1e6784]"
                             />
                             <label className="font-medium">Is Active</label>
@@ -180,12 +234,14 @@ const AddEditOffice = () => {
                             <label className="font-medium">Remarks</label>
                             <textarea
                                 rows="3"
+                                name="remarks"
                                 placeholder="Enter Remarks"
                                 className="border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                value={formData.remarks}
-                                onChange={(e) => setFormData({...formData, remarks: e.target.value})}
+                                value={formData.remarks || ""}
+                                onChange={handleChange}
                             />
                         </div>
+
                     </div>
 
                     <div className="flex justify-center gap-6 mt-10">
@@ -194,7 +250,6 @@ const AddEditOffice = () => {
                             className="px-8 py-2 rounded-md bg-[#1e6784] text-white hover:bg-[#175067] transition cursor-pointer">
                             Save
                         </button>
-
                         <button
                             type="reset"
                             className="px-8 py-2 rounded-md bg-[#b3d0db] text-[#1a5c77] hover:bg-[#a1bbc5] transition cursor-pointer">

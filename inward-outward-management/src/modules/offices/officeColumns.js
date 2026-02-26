@@ -1,6 +1,6 @@
 export const officeColumns = [
     {
-        key: 'officename',
+        key: 'officeName',
         header: 'Office Name'
     },
     {
