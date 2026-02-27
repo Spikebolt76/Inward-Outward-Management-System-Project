@@ -9,6 +9,7 @@ import ConfirmDeleteModal from "../../components/confirmDeleteModal";
 import ViewInstituteModal from "./viewInstituteModal";
 
 const Institutes = () => {
+	
 	const navigate = useNavigate();
 	const [institutes, setInstitutes] = useState([]);
 	const [rowToDelete, setRowToDelete] = useState(null);

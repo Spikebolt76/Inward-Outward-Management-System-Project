@@ -1,45 +1,45 @@
-const courierService = require('../services/courier.service');
+const finYearService = require('../services/finYear.service');
 
-const createCourier = async (req, res) => {
+const createFinYear = async (req, res) => {
     try {
-        const courier = await courierService.createCourier(req.body);
+        const finYear = await finYearService.createFinYear(req.body);
 
         res.status(201).json({
             success: true,
-            data: courier
+            data: finYear
         });
 
     } catch(err) {
         res.status(500).json({
             success: false,
-            message: err.message
+            message: err.message || "Failed to create finYear"
         });
     }
 }
 
-const getAllCouriers = async (req, res) => {
+const getAllFinYears = async (req, res) => {
     try {
-        const couriers = await courierService.getAllCouriers();
+        const finYears = await finYearService.getAllFinYears();
 
         res.status(200).json({
             success: true,
-            data: couriers
+            data: finYears
         });
 
     } catch(err) {
         res.status(500).json({
             success: false,
-            message: err.message
-        });
+            message: err.message 
+        })
     }
 }
 
-const getCourier = async (req, res) => {
+const getFinYear = async (req, res) => {
     try {
-        const courier = await courierService.getCourier(req.params.id);
+        const finYear = await finYearService.getFinYear(req.params.id);
 
-        if(!courier) {
-            return res.status(404).json({
+        if(!finYear) {
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
@@ -47,7 +47,7 @@ const getCourier = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            data: courier
+            data: finYear
         });
 
     } catch(err) {
@@ -58,17 +58,17 @@ const getCourier = async (req, res) => {
     }
 }
 
-const deleteCourier = async (req, res) => {
+const deleteFinYear = async (req, res) => {
     try {
-        const deleted = await courierService.deleteCourier(req.params.id);
+        const deleted = await finYearService.deleteFinYear(req.params.id);
         
         if(!deleted) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
         }
-        
+
         res.status(200).json({
             success: true,
             data: deleted
@@ -82,17 +82,17 @@ const deleteCourier = async (req, res) => {
     }
 }
 
-const updateCourier = async (req, res) => {
+const updateFinYear = async (req, res) => {
     try {
-        const updated = await courierService.updateCourier(req.params.id, req.body);
-        
+        const updated = await finYearService.updateFinYear(req.params.id, req.body);
+
         if(!updated) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
         }
-        
+
         res.status(200).json({
             success: true,
             data: updated
@@ -106,4 +106,4 @@ const updateCourier = async (req, res) => {
     }
 }
 
-module.exports = { createCourier, getAllCouriers, getCourier, updateCourier, deleteCourier } 
+module.exports = { createFinYear, getAllFinYears, getFinYear, updateFinYear, deleteFinYear };

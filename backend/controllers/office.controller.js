@@ -1,5 +1,3 @@
-const express = require('express');
-
 const officeService = require('../services/office.service');
 
 const createOffice = async (req, res) => {

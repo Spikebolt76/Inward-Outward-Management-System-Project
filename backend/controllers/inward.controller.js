@@ -1,45 +1,45 @@
-const courierService = require('../services/courier.service');
+const inwardService = require('../services/inward.service');
 
-const createCourier = async (req, res) => {
+const createInward = async (req, res) => {
     try {
-        const courier = await courierService.createCourier(req.body);
+        const inward = await inwardService.createInward(req.body);
 
         res.status(201).json({
             success: true,
-            data: courier
+            data: inward
         });
 
     } catch(err) {
         res.status(500).json({
             success: false,
-            message: err.message
+            message: err.message || "Failed to create inward"
         });
     }
 }
 
-const getAllCouriers = async (req, res) => {
+const getAllInwards = async (req, res) => {
     try {
-        const couriers = await courierService.getAllCouriers();
+        const inwards = await inwardService.getAllInwards();
 
         res.status(200).json({
             success: true,
-            data: couriers
+            data: inwards
         });
 
     } catch(err) {
         res.status(500).json({
             success: false,
-            message: err.message
-        });
+            message: err.message 
+        })
     }
 }
 
-const getCourier = async (req, res) => {
+const getInward = async (req, res) => {
     try {
-        const courier = await courierService.getCourier(req.params.id);
+        const inward = await inwardService.getInward(req.params.id);
 
-        if(!courier) {
-            return res.status(404).json({
+        if(!inward) {
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
@@ -47,7 +47,7 @@ const getCourier = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            data: courier
+            data: inward
         });
 
     } catch(err) {
@@ -58,17 +58,17 @@ const getCourier = async (req, res) => {
     }
 }
 
-const deleteCourier = async (req, res) => {
+const deleteInward = async (req, res) => {
     try {
-        const deleted = await courierService.deleteCourier(req.params.id);
+        const deleted = await inwardService.deleteInward(req.params.id);
         
         if(!deleted) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
         }
-        
+
         res.status(200).json({
             success: true,
             data: deleted
@@ -82,17 +82,17 @@ const deleteCourier = async (req, res) => {
     }
 }
 
-const updateCourier = async (req, res) => {
+const updateInward = async (req, res) => {
     try {
-        const updated = await courierService.updateCourier(req.params.id, req.body);
-        
+        const updated = await inwardService.updateInward(req.params.id, req.body);
+
         if(!updated) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
                 message: "Resource Not Found"
             });
         }
-        
+
         res.status(200).json({
             success: true,
             data: updated
@@ -106,4 +106,4 @@ const updateCourier = async (req, res) => {
     }
 }
 
-module.exports = { createCourier, getAllCouriers, getCourier, updateCourier, deleteCourier } 
+module.exports = { createInward, getAllInwards, getInward, updateInward, deleteInward };

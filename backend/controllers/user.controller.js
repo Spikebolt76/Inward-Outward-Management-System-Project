@@ -1,5 +1,3 @@
-const express = require('express');
-
 const userService = require("../services/user.service");
 
 const createUser = async (req, res) => {

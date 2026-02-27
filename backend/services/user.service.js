@@ -1,5 +1,6 @@
 const { User, Institute, Department } = require("../models/associations");
 
+
 const createUser  = async (data) => {
     return await User.create(data);
 }

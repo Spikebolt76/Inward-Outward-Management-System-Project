@@ -34,8 +34,8 @@ const AddEditUser = () => {
                     axios.get("/api/departments"),
                     axios.get("/api/institutes")
                 ]);
-                console.log({ department, institute })
-                setHelperData({ department, institute });
+
+                setHelperData({ department: department || [], institute: institute || [] });
             } catch (err) {
                 console.log("Failed to load helper data", err);
             }
@@ -48,20 +48,20 @@ const AddEditUser = () => {
 
         const fetchFormData = async () => {
             try {
-                const { data } = await axios.get(`/api/users/${id}`);
+                const { data: { data } } = await axios.get(`/api/users/${id}`);
                 // Don't populate password fields on edit
-                const { passwordHash, ...rest } = data.data;
+     
                 setFormData({ 
-                    fullName: rest.fullName || "",
-                    username: rest.username || "",
-                    email: rest.email || "",
-                    phoneNo: rest.phoneNo || "",
-                    role: rest.role || "Operator",
-                    instituteId: rest.instituteId || "",
-                    departmentId: rest.departmentId || "",
-                    isActive: rest.isActive ?? true,
-                    mustChangePassword: rest.mustChangePassword ?? true,
-                    remarks: rest.remarks || "",
+                    fullName: data.fullName || "",
+                    username: data.username || "",
+                    email: data.email || "",
+                    phoneNo: data.phoneNo || "",
+                    role: data.role || "Operator",
+                    instituteId: data.instituteId || "",
+                    departmentId: data.departmentId || "",
+                    isActive: data.isActive ?? true,
+                    mustChangePassword: data.mustChangePassword ?? true,
+                    remarks: data.remarks || "",
                     password: "", confirmPassword: "" });
             } catch (err) {
                 console.log("Failed to load user data", err);

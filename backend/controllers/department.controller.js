@@ -1,5 +1,3 @@
-const express = require('express');
-
 const departmentService = require('../services/department.service');
 
 const createDepartment = async (req, res) => {

@@ -1,5 +1,3 @@
-const express = require('express');
-
 const instituteService = require('../services/institute.service');
 
 const createInstitute = async (req, res) => {

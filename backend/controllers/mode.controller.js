@@ -1,5 +1,3 @@
-const express = require("express");
-
 const modeService = require("../services/mode.service");
 
 const createMode = async (req, res) => {

@@ -1,5 +1,3 @@
-const express = require("express");
-
 const contactService = require("../services/contact.service");
 
 const createContact = async (req, res) => {

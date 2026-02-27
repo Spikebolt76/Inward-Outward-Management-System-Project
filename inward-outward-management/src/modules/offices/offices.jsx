@@ -9,6 +9,7 @@ import ConfirmDeleteModal from "../../components/confirmDeleteModal";
 import ViewOfficeModal from "./viewOfficeModal";
 
 const Offices = () => {
+    
     const navigate = useNavigate();
     const [offices, setOffices] = useState([]);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);

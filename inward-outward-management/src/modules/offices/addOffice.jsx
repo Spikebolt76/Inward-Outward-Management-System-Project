@@ -29,11 +29,11 @@ const AddEditOffice = () => {
     useEffect(() => {
         const fetchHelperData = async () => {
             try {
-                const [{ data: { data: department } }, { data: { data: institute } }] = await Promise.all([
+                const [{ data: { data: departments } }, { data: { data: institutes } }] = await Promise.all([
                     axios.get("/api/departments"),
                     axios.get("/api/institutes")
                 ]);
-                setHelperData({ department, institute });
+                setHelperData({ departments: departments || [], institutes: institutes || [] });
             } catch (err) {
                 console.log("Failed to load helper data", err);
             }
@@ -74,8 +74,7 @@ const AddEditOffice = () => {
             [name]: type === "checkbox"
                 ? checked
                 : (name === "instituteId" || name === "departmentId" || name === "openingInwardNo" || name === "openingOutwardNo")
-                    ? Number(value) || ""
-                    : value,
+                    ? Number(value) || "" : value
         }));
     };
 
@@ -142,7 +141,7 @@ const AddEditOffice = () => {
                                 value={formData.instituteId}
                                 onChange={handleChange}>
                                 <option value="">Select Institute</option>
-                                {(helperData.institute || []).map((institute) =>
+                                {(helperData.institutes || []).map((institute) =>
                                     <option key={institute.instituteId} value={institute.instituteId}>{institute.instituteName}</option>
                                 )}
                             </select>
@@ -156,7 +155,7 @@ const AddEditOffice = () => {
                                 value={formData.departmentId}
                                 onChange={handleChange}>
                                 <option value="">Select Department</option>
-                                {(helperData.department || []).map((department) =>
+                                {(helperData.departments || []).map((department) =>
                                     <option key={department.departmentId} value={department.departmentId}>{department.departmentName}</option>
                                 )}
                             </select>
