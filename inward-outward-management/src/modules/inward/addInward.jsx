@@ -104,7 +104,7 @@ const AddEditInward = () => {
             }
         };
         fetchHelperData();
-    }, []); // BUG FIX: was missing [], causing infinite loop
+    }, []); 
 
     useEffect(() => {
         if (!id) return;

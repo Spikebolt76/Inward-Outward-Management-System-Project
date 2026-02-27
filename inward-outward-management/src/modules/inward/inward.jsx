@@ -1,14 +1,12 @@
 import { FaListUl } from "react-icons/fa6";
 import DataTable from "../../components/dataTable";
 import { inwardColumns } from "./inwardColumns";
-import { makeDummyData } from "../dummyData";
 import AddButton from "../../components/addButton";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ConfirmDeleteModal from "../../components/confirmDeleteModal";
-
-const data = makeDummyData(inwardColumns, 3);
+import ViewInwardModal from "./viewInwardModal";
 
 const Inward = () => {
 
@@ -52,6 +50,11 @@ const Inward = () => {
         navigate(`/inward/${row.inwardId}`);
     }
 
+    const handleView = (row) => {
+        setRowToView(row);
+        setIsViewOpen(true);
+    }
+
     return(
         <div className="flex-1">
            <div className="flex flex-col bg-white rounded-xl m-8 p-6 shadow-lg">
@@ -73,12 +76,18 @@ const Inward = () => {
                     rowKey="inwardId"
                     onDelete={handleDelete}
                     onEdit={handleEdit}
+                    onView={handleView}
                 />
             </div>
 
             {isDeleteOpen && <ConfirmDeleteModal 
                 onCancel={() => setIsDeleteOpen(false)}
                 onConfirm={() => handleConfirmDelete(rowToDelete)}/>}
+
+            {isViewOpen && <ViewInwardModal 
+            onEdit={handleEdit}
+            onCancel={() => setIsViewOpen(false)}
+            data={rowToView}/>}
         </div>
     );
 }

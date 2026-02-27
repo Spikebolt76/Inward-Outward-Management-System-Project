@@ -27,6 +27,8 @@ import AddOutward from './modules/outward/addOutward.jsx'
 import AddUser from './modules/user/addUser.jsx'
 import AddInstitute from './modules/institute/addInstitute.jsx'
 import AddDepartment from './modules/department/addDepartment.jsx'
+import FinancialYear from './modules/financialYear/financialYear.jsx'
+import AddEditFinancialYear from './modules/financialYear/addFinancialYear.jsx'
 
 
 
@@ -112,6 +114,20 @@ const router = createBrowserRouter([
       },
       { path: "departments/add", element: <AddDepartment />},
       { path: "departments/:id", element: <AddDepartment />},
+
+      {
+        path: "departments",
+        element: <Departments />
+      },
+      { path: "departments/add", element: <AddDepartment />},
+      { path: "departments/:id", element: <AddDepartment />},
+
+      {
+        path: "financialYear",
+        element: <FinancialYear />
+      },
+      { path: "financialYear/add", element: <AddEditFinancialYear />},
+      { path: "financialYear/:id", element: <AddEditFinancialYear />},
     ] 
   },
   {
