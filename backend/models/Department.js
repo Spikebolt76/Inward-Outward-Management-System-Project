@@ -21,7 +21,6 @@ const Department = sequelize.define('Department', {
 	instituteId: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
-		references: { model: 'institutes', key: 'institute_id' },
 		field: 'institute_id'
 	},
 	headPersonName: {
@@ -57,13 +56,11 @@ const Department = sequelize.define('Department', {
 	createdBy: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
-		references: { model: 'users', key: 'user_id' },
 		field: 'created_by'
 	},
 	updatedBy: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
-		references: { model: 'users', key: 'user_id' },
 		field: 'updated_by'
 	}
 }, {

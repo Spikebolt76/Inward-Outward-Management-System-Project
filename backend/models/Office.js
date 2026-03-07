@@ -16,13 +16,11 @@ const Office = sequelize.define('Office', {
     instituteId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'institutes', key: 'institute_id' },
         field: 'institute_id'
     },
     departmentId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: 'departments', key: 'department_id' },
         field: 'department_id'
     },
     email: {
@@ -70,14 +68,12 @@ const Office = sequelize.define('Office', {
         type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: 1,
-        references: { model: 'users', key: 'user_id' },
         field: 'created_by'
     },
     updatedBy: {
         type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: 1,
-        references: { model: 'users', key: 'user_id' },
         field: 'updated_by'
     }
 }, {

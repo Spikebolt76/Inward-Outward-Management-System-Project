@@ -57,13 +57,11 @@ const Institute = sequelize.define('Institute', {
 	createdBy: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
-		references: { model: 'users', key: 'user_id' },
 		field: 'created_by'
 	},
 	updatedBy: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
-		references: { model: 'users', key: 'user_id' },
 		field: 'updated_by'
 	}
 }, {

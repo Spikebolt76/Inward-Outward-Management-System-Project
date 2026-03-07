@@ -25,13 +25,11 @@ const Outward = sequelize.define('Outward', {
     instituteId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'institutes', key: 'institute_id' },
         field: 'institute_id'
     },
     finYearId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'financial_years', key: 'fin_year_id' },
         field: 'fin_year_id'
     },
 
@@ -39,13 +37,11 @@ const Outward = sequelize.define('Outward', {
     fromOfficeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'offices', key: 'office_id' },
         field: 'from_office_id'
     },
     toOfficeId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: 'offices', key: 'office_id' },
         field: 'to_office_id'
     },
 
@@ -53,7 +49,6 @@ const Outward = sequelize.define('Outward', {
     toContactId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: 'contacts', key: 'contact_id' },
         field: 'to_contact_id'
     },
     toName: {
@@ -86,7 +81,6 @@ const Outward = sequelize.define('Outward', {
     departmentId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: 'departments', key: 'department_id' },
         field: 'department_id'
     },
 
@@ -94,7 +88,6 @@ const Outward = sequelize.define('Outward', {
     transferModeId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: 'transfer_modes', key: 'transfer_mode_id' },
         field: 'transfer_mode_id'
     },
 
@@ -102,7 +95,6 @@ const Outward = sequelize.define('Outward', {
     courierCompanyId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: 'courier_companies', key: 'courier_company_id' },
         field: 'courier_company_id'
     },
     trackingNo: {
@@ -207,7 +199,6 @@ const Outward = sequelize.define('Outward', {
     linkedInwardId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: { model: 'inwards', key: 'inward_id' },
         field: 'linked_inward_id'
     },
 
@@ -241,13 +232,11 @@ const Outward = sequelize.define('Outward', {
     createdBy: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'user_id' },
         field: 'created_by'
     },
     updatedBy: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'user_id' },
         field: 'updated_by'
     }
 }, {

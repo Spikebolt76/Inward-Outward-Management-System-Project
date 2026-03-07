@@ -23,9 +23,9 @@ const updateContact = async (id, data) => {
 
     if (!contact) return null;
 
-    await Contact.update(data);
+    await contact.update(data);
 
-    return Contact; 
+    return contact; 
 }
 
 module.exports = { createContact, getAllContacts, getContact, updateContact, deleteContact };

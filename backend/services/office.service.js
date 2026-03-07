@@ -7,8 +7,8 @@ const createOffice = async (data) => {
 const getAllOffices = async () => {
     return await Office.findAll({
         include: [
-            { model: Institute, as: 'institute' },
-            { model: Department, as: 'department' }
+            { model: Institute, as: 'institute', attributes: ['instituteId', 'instituteName']},
+            { model: Department, as: 'department', attributes: ['departmentId', 'departmentName'] }
         ]
     });
 }
@@ -16,8 +16,8 @@ const getAllOffices = async () => {
 const getOffice = async (id) => {
     return await Office.findByPk(id, {
         include: [
-            { model: Institute, as: 'institute' },
-            { model: Department, as: 'department' }
+            { model: Institute, as: 'institute', attributes: ['instituteId', 'instituteName'] },
+            { model: Department, as: 'department', attributes: ['departmentId', 'departmentName'] }
         ]
     });
 }
@@ -35,12 +35,7 @@ const updateOffice = async (id, data) => {
 
     await office.update(data);
 
-    return await Office.findByPk(id, {
-        include: [
-            { model: Institute, as: 'institute' },
-            { model: Department, as: 'department' }
-        ]
-    });
+    return await Office.findByPk(id);
 }
 
 module.exports = { createOffice, getAllOffices, getOffice, deleteOffice, updateOffice }

@@ -16,13 +16,11 @@ const InwardOutwardCounter = sequelize.define('InwardOutwardCounter', {
     officeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'offices', key: 'office_id' },
         field: 'office_id'
     },
     finYearId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'financial_years', key: 'fin_year_id' },
         field: 'fin_year_id'
     },
     currentInwardNo: {
@@ -43,13 +41,11 @@ const InwardOutwardCounter = sequelize.define('InwardOutwardCounter', {
     createdBy: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'user_id' },
         field: 'created_by'
     },
     updatedBy: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'user_id' },
         field: 'updated_by'
     }
 }, {

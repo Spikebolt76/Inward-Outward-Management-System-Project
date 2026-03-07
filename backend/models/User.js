@@ -48,13 +48,11 @@ const User = sequelize.define('User', {
 	instituteId: {
 		type: DataTypes.INTEGER,
 		allowNull: true, // null = SuperAdmin (spans all institutes)
-		references: { model: 'institutes', key: 'institute_id' },
 		field: 'institute_id'
 	},
 	departmentId: {
 		type: DataTypes.INTEGER,
 		allowNull: true,
-		references: { model: 'departments', key: 'department_id' },
 		field: 'department_id'
 	},
 	isActive: {
@@ -85,7 +83,12 @@ const User = sequelize.define('User', {
 	updatedAt: 'updated_at',
     defaultScope: {
         attributes: { exclude: ['passwordHash'] }
-    }
+    },
+	scopes: {
+		withPassword:{
+			attributes: { include: ['passwordHash'] }
+		}
+	}
 	// No created_by/updated_by to avoid circular self-reference.
 	// First SuperAdmin is seeded directly into the DB.
 },);
