@@ -13,7 +13,8 @@ export const financialYearColumns = [
     },
     {
         key: 'isCurrent',
-        header: 'Current'
+        header: 'Current',
+        render: (row) => row.isCurrent ? <span className="text-green-600">Yes</span> : <span className="text-red-600">No</span>
     },
     {
         key: 'isActive',
